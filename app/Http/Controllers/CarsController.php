@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cars;
+use App\Models\Car;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,7 +15,7 @@ class CarsController extends Controller
      */
     public function index()
     {
-        $cars = Cars::all();
+        $cars = Car::all();
         return response()->json([
             'cars' => $cars
         ], 200);
@@ -35,11 +35,11 @@ class CarsController extends Controller
             'is_registered' => 'string|nullable'
         ]);
 
-        $cars = new Cars();
-        $cars->name = $request->name;
-        $cars->registration_number = $request->registration_number ? $request->registration_number : null;
-        $cars->is_registered = $request->is_registered ? 1 : 0;
-        $cars->save();
+        $car = new Car();
+        $car->name = $request->name;
+        $car->registration_number = $request->registration_number ? $request->registration_number : null;
+        $car->is_registered = $request->is_registered ? 1 : 0;
+        $car->save();
     }
 
     /**

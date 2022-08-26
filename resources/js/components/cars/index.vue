@@ -11,7 +11,7 @@ const showHome = () => {
 };
 
 const newCar = () => {
-    router.push("/new_car");
+    router.push("/new/car");
 };
 
 const editCar = () => {
@@ -29,7 +29,6 @@ onMounted(async () => {
 const getCars = async () => {
     let response = axios.get("/api/get/cars")
     cars.value = response.data.cars
-    console.log("cars", cars.value);
 }
 
 </script>
@@ -53,7 +52,7 @@ const getCars = async () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr v-for="car in cars" :key="car.id" v-if="cars.length > 0">
                     <th scope="row">Action</th>
                     <td>mdo</td>
                     <td>@mdo</td>
@@ -65,29 +64,8 @@ const getCars = async () => {
                         <span class="cursor-pointer" @click="editCar">Edit</span>
                     </td>
                 </tr>
-                <tr>
-                    <th scope="row">Action</th>
-                    <td>mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td class="text-center text-danger">
-                        <span class="cursor-pointer" @click="deleteCar">Delete</span>
-                    </td>
-                    <td class="text-center">
-                        <span class="cursor-pointer" @click="editCar">Edit</span>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Action</th>
-                    <td>mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                    <td class="text-center text-danger">
-                        <span class="cursor-pointer" @click="deleteCar">Delete</span>
-                    </td>
-                    <td class="text-center">
-                        <span class="cursor-pointer" @click="editCar">Edit</span>
-                    </td>
+                <tr v-if="cars.length <= 0">
+                    <td><h3>No Cars</h3></td>
                 </tr>
             </tbody>
         </table>

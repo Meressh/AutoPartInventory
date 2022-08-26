@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Part;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PartsController extends Controller
 {
@@ -13,7 +15,10 @@ class PartsController extends Controller
      */
     public function index()
     {
-        //
+        $parts = Part::all();
+        return response()->json([
+            'items' => $parts
+        ], 200);
     }
 
     /**
@@ -24,7 +29,17 @@ class PartsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => 'required|string',
+            'serialnumber' => 'required|integer',
+            'car_id' => 'integer|nullable'
+        ]);
+
+        $part = new Part();
+        $part->name = $request->name;
+        $part->serialnumber = $request->serialnumber;
+        $part->car_id = $request->car_id ? $request->car_id : null;
+        $part->save();
     }
 
     /**

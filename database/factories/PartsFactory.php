@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Cars;
+use App\Models\Car;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Parts>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Part>
  */
 class PartsFactory extends Factory
 {

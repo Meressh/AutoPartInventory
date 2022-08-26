@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('parts', function (Blueprint $table) {
             $table->string('name');
             $table->integer('serialnumber');
-            $table->integer('car_id');
+            $table->integer('car_id')->nullable();
             $table->timestamps();
         });
     }

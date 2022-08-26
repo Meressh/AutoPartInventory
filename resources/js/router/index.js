@@ -19,7 +19,7 @@ const routes = [{
         component: carsIndex,
     },
     {
-        path: '/new_car',
+        path: '/new/car',
         component: newCar
     },
     {
@@ -31,11 +31,11 @@ const routes = [{
         component: itemIndex
     },
     {
-        path: '/new_item',
+        path: '/new/item',
         component: newItem
     },
     {
-        path: '/edit_item',
+        path: '/edit/item',
         component: editItem
     },
     {

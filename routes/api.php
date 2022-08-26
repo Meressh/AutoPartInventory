@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\CarsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarsController;
+use App\Http\Controllers\PartsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Cars
 Route::get('/get/cars', [CarsController::class, 'index']);
 Route::post('/add/cars', [CarsController::class, 'store']);
+
+//Parts
+Route::get('/get/items', [PartsController::class, 'index']);
+Route::post('/add/items', [PartsController::class, 'store']);

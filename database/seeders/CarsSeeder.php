@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cars;
+use App\Models\Car;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -15,7 +15,7 @@ class CarsSeeder extends Seeder
      */
     public function run()
     {
-        Cars::factory()
+        Car::factory()
         ->count(50)
         ->hasParts(25)
         ->create();

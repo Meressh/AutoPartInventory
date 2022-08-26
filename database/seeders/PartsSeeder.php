@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Cars;
-use App\Models\Parts;
+use App\Models\Car;
+use App\Models\Part;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -16,9 +16,9 @@ class PartsSeeder extends Seeder
      */
     public function run()
     {
-        Parts::factory()
+        Part::factory()
         ->count(25)
-        ->for(Cars::factory()->state([
+        ->for(Car::factory()->state([
             'name' => 'Traktor :)',
         ]))
         ->create();

@@ -12,7 +12,7 @@
 
 ✅Jedno auto má viacero dielov a jeden diel patrí len k jednému autu.
 
-❌K autu je evidované, že je registrované alebo nie.
+✅K autu je evidované, že je registrované alebo nie.
 
 ❌Používateľ vie zobraziť zoznam aut/dielov, pridať nové auto/diel, upravovať auto/diel, mazať auto/diel
 
@@ -25,4 +25,5 @@
 ✅Na dizajnovú stránku použite bootstrap. Na backend použite laravel 6+, na frontend podľa možností vuejs.
 
 ✅Na databázu použite mysql. Použiť môžete aj iné nevyhnutné technológie.
+
 ❌zapracujte filtrovanie do zoznamu aut/dielov
