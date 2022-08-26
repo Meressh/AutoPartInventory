@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import { ref } from "vue"
 import { axios } from "axios"
+import { toStatement } from "@babel/types";
 
 const router = useRouter();
 
@@ -29,6 +30,11 @@ const saveCar = () => {
         form.value.is_registered = ''
 
         router.push('/cars')
+
+        toast.fire({
+            icon: "success",
+            title: "Car was added successfully"
+        })
     })
     .catch((error) => {
 

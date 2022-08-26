@@ -1,5 +1,8 @@
 <script setup>
 import { useRouter } from "vue-router";
+import { onMounted, ref } from "vue";
+
+let cars = ref([])
 
 const router = useRouter();
 
@@ -18,6 +21,16 @@ const editCar = () => {
 const deleteCar = () => {
     router.push("");
 };
+
+onMounted(async () => {
+    getCars()
+})
+
+const getCars = async () => {
+    let response = axios.get("/api/get/cars")
+    cars.value = response.data.cars
+    console.log("cars", cars.value);
+}
 
 </script>
 
