@@ -1,4 +1,16 @@
 import './bootstrap';
+import Swal from 'sweetalert2/dist/sweetalert2'
+import 'sweetalert2/dist/sweetalert2.css'
+
+window.Swal = Swal;
+const toast = Swal.mixmin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timeProgressBar: true,
+})
+window.toast = toast;
 
 import { createApp } from "vue"
 import App from "./components/App.vue"

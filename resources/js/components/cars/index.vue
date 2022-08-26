@@ -8,11 +8,11 @@ const showHome = () => {
 };
 
 const newCar = () => {
-    router.push("/new/car");
+    router.push("/new_car");
 };
 
 const editCar = () => {
-    router.push("/edit/car");
+    router.push("/edit_car");
 };
 
 const deleteCar = () => {

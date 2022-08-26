@@ -1,5 +1,19 @@
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const showCars = () => {
+    router.push("/cars");
+};
+</script>
+
 <template>
     <div class="cars">
+        <h2>Edit Car</h2>
+        <button type="button" class="btn btn-dark" @click="showCars">
+            Back
+        </button>
         <form>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label"

@@ -8,6 +8,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #000;
 }
 
 .frosty-background {
@@ -47,4 +48,10 @@ tr {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.form-control {
+  background-color: #333739 !important;
+  border-color: #0f1111 !important;
+  color: #fff !important;
 }

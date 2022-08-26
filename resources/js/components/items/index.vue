@@ -8,11 +8,11 @@ const showHome = () => {
 };
 
 const newItem = () => {
-    router.push("/new/item");
+    router.push("/new_item");
 };
 
 const editItem = () => {
-    router.push("/edit/item");
+    router.push("/edit_item");
 };
 const deleteItem = () => {
     router.push("");

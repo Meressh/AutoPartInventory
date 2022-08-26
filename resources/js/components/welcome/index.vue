@@ -14,7 +14,7 @@ const showItems = () => {
 </script>
 <template>
     <div class="welcome main-div-holder">
-        <h1>Welcom on this page.</h1>
+        <h1>Welcome on this page.</h1>
         <div>
             <button type="button" class="btn btn-info" @click="showCars">Show Cars</button>
             <button type="button" class="btn btn-dark ms-2" @click="showItems">Show Parts</button>

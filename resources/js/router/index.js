@@ -16,27 +16,27 @@ const routes = [{
     },
     {
         path: '/cars',
-        component: carsIndex
+        component: carsIndex,
     },
     {
-        path: '/new/car',
-        component: carsIndex
+        path: '/new_car',
+        component: newCar
     },
     {
-        path: '/edit/car',
-        component: carsIndex
+        path: '/edit_car',
+        component: editCar
     },
     {
         path: '/items',
         component: itemIndex
     },
     {
-        path: '/new/item',
-        component: itemIndex
+        path: '/new_item',
+        component: newItem
     },
     {
-        path: '/edit/item',
-        component: itemIndex
+        path: '/edit_item',
+        component: editItem
     },
     {
         path: '/:pathMatch(.*)*',

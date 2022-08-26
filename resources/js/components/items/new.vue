@@ -1,5 +1,18 @@
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const showItems = () => {
+    router.push("/items");
+};
+</script>
 <template>
     <div class="items">
+        <h2>New Item</h2>
+        <button type="button" class="btn btn-dark" @click="showItems">
+            Back
+        </button>
         <form>
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label"
