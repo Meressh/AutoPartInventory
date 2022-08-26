@@ -44,3 +44,7 @@ table,
 tr {
   --bs-border-color: #000;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

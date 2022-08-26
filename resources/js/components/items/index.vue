@@ -1,17 +1,31 @@
 <script setup>
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
 const showHome = () => {
-    router.push('/');
-}
+    router.push("/");
+};
+
+const newItem = () => {
+    router.push("/new/item");
+};
+
+const editItem = () => {
+    router.push("/edit/item");
+};
+const deleteItem = () => {
+    router.push("");
+};
 </script>
 
 <template>
     <div class="items">
         <h2>Parts</h2>
-        <button type="button" class="btn btn-dark" @click="showHome">Back</button>
+        <button type="button" class="btn btn-dark" @click="showHome">
+            Back
+        </button>
+        <button type="button" class="btn btn-info ms-2" @click="newItem">New</button>
         <table class="table">
             <thead>
                 <tr>
@@ -29,24 +43,36 @@ const showHome = () => {
                     <td>Mark</td>
                     <td>@mdo</td>
                     <td>@mdo</td>
-                    <td class="text-danger">Delete</td>
-                    <td>Edit</td>
+                    <td class="text-center text-danger">
+                        <span class="cursor-pointer" @click="deleteItem">Delete</span>
+                    </td>
+                    <td class="text-center">
+                        <span class="cursor-pointer" @click="editItem">Edit</span>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
                     <td>@mdo</td>
                     <td>@mdo</td>
-                    <td class="text-danger">Delete</td>
-                    <td>Edit</td>
+                    <td class="text-center text-danger">
+                        <span class="cursor-pointer" @click="deleteItem">Delete</span>
+                    </td>
+                    <td class="text-center">
+                        <span class="cursor-pointer" @click="editItem">Edit</span>
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">Action</th>
                     <td>asdasd</td>
                     <td>@mdo</td>
                     <td>@mdo</td>
-                    <td class="text-danger">Delete</td>
-                    <td>Edit</td>
+                    <td class="text-center text-danger">
+                        <span class="cursor-pointer" @click="deleteItem">Delete</span>
+                    </td>
+                    <td class="text-center">
+                        <span class="cursor-pointer" @click="editItem">Edit</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
