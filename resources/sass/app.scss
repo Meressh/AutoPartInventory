@@ -1,0 +1,36 @@
+$url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F401%2F390%2Foriginal%2Fvector-background-wallpaper-with-polygons-in-gradient-colors.jpg&f=1&nofb=1";
+body {
+    background-image: url($url);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    min-width: 100vh;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.frosty-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    filter: blur(7px);
+    z-index: -1;
+}
+
+.frosty-background {
+    background: inherit;
+    z-index: -2;
+}
+
+.frosty-background:before {
+    background: inherit;
+}
+
+#app {
+    max-width: 85%;
+    max-height: 85%;
+}
