@@ -16,7 +16,6 @@
 
 
     <body class="antialiased">
-        hjksdfbhdfsabhjdfasbhjsdfahbjsdfajbhkdasfbhjkasdf
         <div id="app"></div>
     </body>
 </html>
