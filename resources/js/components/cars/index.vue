@@ -1,31 +1,52 @@
+<script setup>
+import { useRouter } from "vue-router"
+
+const router = useRouter()
+
+const showHome = () => {
+    router.push('/');
+}
+</script>
+
 <template>
     <div class="cars">
+        <h2>Cars</h2>
+        <button type="button" class="btn btn-dark" @click="showHome">Back</button>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Registration N.</th>
+                    <th scope="col">Registered</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
-                    <td>Otto</td>
                     <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td class="text-danger">Delete</td>
+                    <td>Edit</td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
                     <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td class="text-danger">Delete</td>
+                    <td>Edit</td>
                 </tr>
                 <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
+                    <th scope="row">Action</th>
+                    <td>mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td class="text-danger">Delete</td>
+                    <td>Edit</td>
                 </tr>
             </tbody>
         </table>
