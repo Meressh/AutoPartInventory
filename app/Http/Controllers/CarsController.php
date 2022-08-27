@@ -71,6 +71,21 @@ class CarsController extends Controller
     }
 
     /**
+     * Search for specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search($query)
+    {
+        $cars = Car::where("name", $query)->get();
+
+        return response()->json([
+            'cars' => $cars
+        ], 200);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

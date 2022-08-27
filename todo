@@ -14,9 +14,9 @@
 
 ✅K autu je evidované, že je registrované alebo nie.
 
-❌Používateľ vie zobraziť zoznam aut/dielov, pridať nové auto/diel, upravovať auto/diel, mazať auto/diel
+✅Používateľ vie zobraziť zoznam aut/dielov, pridať nové auto/diel, upravovať auto/diel, mazať auto/diel
 
-❌Polia name, serialnumber sú povinné polia. Pole registration_number je povinné iba ak je auto registrované.
+✅Polia name, serialnumber sú povinné polia. Pole registration_number je povinné iba ak je auto registrované.
 
 ✅Použite migrácie.
 

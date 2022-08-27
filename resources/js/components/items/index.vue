@@ -79,11 +79,10 @@ const getItems = async () => {
                     <th scope="col"></th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody v-if="items.length > 0">
                 <tr
                     v-for="item in items"
                     :key="item.id"
-                    v-if="items.length > 0"
                 >
                     <th scope="row">1</th>
                     <td>{{ item.name }}</td>
@@ -102,10 +101,10 @@ const getItems = async () => {
                         >
                     </td>
                 </tr>
-                <tr v-else>
-                    <td><h3>No Parts</h3></td>
-                </tr>
             </tbody>
+            <tr v-else>
+                    <td><h3>No Parts</h3></td>
+            </tr>
         </table>
     </div>
 </template>
