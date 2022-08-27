@@ -14,11 +14,12 @@ const newItem = () => {
     router.push("/new/item");
 };
 
-const editItem = () => {
-    router.push("/edit/item");
+const editItem = (id) => {
+    router.push("/edit/item/" + id);
 };
-const deleteItem = () => {
-    router.push("");
+
+const deleteItem = (id) => {
+    router.push("/delete/item/" + id);
 };
 
 onMounted(async () => {
@@ -54,12 +55,12 @@ const getItems = async () => {
                     <th scope="row">1</th>
                     <td>{{ item.name }}</td>
                     <td>{{ item.serialnumber }}</td>
-                    <td>{{ item.car.name }}</td>
+                    <td>{{ item.car ? item.car.name : "No asigned" }}</td>
                     <td class="text-center text-danger">
-                        <span class="cursor-pointer" @click="deleteItem">Delete</span>
+                        <span class="cursor-pointer" @click="deleteItem(item.id)">Delete</span>
                     </td>
                     <td class="text-center">
-                        <span class="cursor-pointer" @click="editItem">Edit</span>
+                        <span class="cursor-pointer" @click="editItem(item.id)">Edit</span>
                     </td>
                 </tr>
                 <tr v-else>

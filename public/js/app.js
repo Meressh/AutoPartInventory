@@ -20524,9 +20524,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   __name: 'edit',
+  props: {
+    id: {
+      type: String,
+      "default": ''
+    }
+  },
   setup: function setup(__props, _ref) {
     var expose = _ref.expose;
     expose();
+    var props = __props;
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter)();
 
     var showItems = function showItems() {
@@ -20535,7 +20542,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
       name: "",
-      registration_number: "",
+      serialnumber: "",
       car_id: ""
     });
     var errorMessage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
@@ -20548,8 +20555,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               getCars();
+              getItem();
 
-            case 1:
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -20557,7 +20565,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     })));
 
-    var getCars = /*#__PURE__*/function () {
+    var getItem = /*#__PURE__*/function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
@@ -20565,13 +20573,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/get/cars");
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/get/item/".concat(props.id));
 
               case 2:
                 response = _context2.sent;
-                cars.value = response.data.cars;
+                form.value.name = response.data.part.name;
+                form.value.serialnumber = response.data.part.serialnumber;
+                form.value.car_id = response.data.part.car_id;
 
-              case 4:
+              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -20579,18 +20589,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }));
 
-      return function getCars() {
+      return function getItem() {
         return _ref3.apply(this, arguments);
       };
     }();
 
-    var saveItem = function saveItem() {
+    var getCars = /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/get/cars");
+
+              case 2:
+                response = _context3.sent;
+                cars.value = response.data.cars;
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function getCars() {
+        return _ref4.apply(this, arguments);
+      };
+    }();
+
+    var checkIfActive = function checkIfActive(id) {
+      if (id == form.value.car_id) {
+        form.value.car_id = null;
+      } else {
+        form.value.car_id = id;
+      }
+    };
+
+    var updateItem = function updateItem() {
       var formData = new FormData();
       formData.append("name", form.value.name);
       formData.append("serialnumber", form.value.serialnumber);
       formData.append("car_id", form.value.car_id);
-      axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/add/items", formData).then(function (response) {
-        form.value.name = "", form.value.serialnumber = "";
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/update/item/" + props.id, formData).then(function (response) {
+        form.value.name = "";
+        form.value.serialnumber = "";
         form.value.car_id = "";
         router.push("/items");
         toast.fire({
@@ -20608,12 +20654,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var __returned__ = {
       router: router,
+      props: props,
       showItems: showItems,
       form: form,
       errorMessage: errorMessage,
       cars: cars,
+      getItem: getItem,
       getCars: getCars,
-      saveItem: saveItem,
+      checkIfActive: checkIfActive,
+      updateItem: updateItem,
       useRouter: vue_router__WEBPACK_IMPORTED_MODULE_3__.useRouter,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
@@ -20669,12 +20718,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       router.push("/new/item");
     };
 
-    var editItem = function editItem() {
-      router.push("/edit/item");
+    var editItem = function editItem(id) {
+      router.push("/edit/item/" + id);
     };
 
-    var deleteItem = function deleteItem() {
-      router.push("");
+    var deleteItem = function deleteItem(id) {
+      router.push("/delete/item/" + id);
     };
 
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -20783,7 +20832,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     var form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
       name: "",
-      registration_number: "",
+      serialnumber: "",
       car_id: ""
     });
     var errorMessage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
@@ -21380,7 +21429,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "btn btn-dark",
     onClick: $setup.showItems
   }, " Back "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.saveItem, ["prevent"])
+    onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.updateItem, ["prevent"])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control",
@@ -21411,7 +21460,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       key: car.id,
       "aria-current": "true",
       onClick: function onClick($event) {
-        return $setup.form.car_id = car.id;
+        return $setup.checkIfActive(car.id);
       }
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(car.name) + " || " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(car.registration_number ? car.registration_number : "No registration number"), 11
     /* TEXT, CLASS, PROPS */
@@ -21473,14 +21522,22 @@ var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_6 = {
+  "class": "text-center text-danger"
+};
+var _hoisted_7 = ["onClick"];
+var _hoisted_8 = {
+  "class": "text-center"
+};
+var _hoisted_9 = ["onClick"];
+var _hoisted_10 = {
   key: 1
 };
 
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "No Parts")], -1
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "No Parts")], -1
 /* HOISTED */
 );
 
-var _hoisted_8 = [_hoisted_7];
+var _hoisted_12 = [_hoisted_11];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
@@ -21499,22 +21556,26 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.serialnumber), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.car.name), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.car ? item.car.name : "No asigned"), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
-      "class": "text-center text-danger"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "cursor-pointer",
-      onClick: $setup.deleteItem
-    }, "Delete")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", {
-      "class": "text-center"
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+      onClick: function onClick($event) {
+        return $setup.deleteItem(item.id);
+      }
+    }, "Delete", 8
+    /* PROPS */
+    , _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
       "class": "cursor-pointer",
-      onClick: $setup.editItem
-    }, "Edit")])]);
+      onClick: function onClick($event) {
+        return $setup.editItem(item.id);
+      }
+    }, "Edit", 8
+    /* PROPS */
+    , _hoisted_9)])]);
   }), 128
   /* KEYED_FRAGMENT */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_6, _hoisted_8))])])]);
+  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", _hoisted_10, _hoisted_12))])])]);
 }
 
 /***/ }),

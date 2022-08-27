@@ -1,6 +1,9 @@
-$url: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F401%2F390%2Foriginal%2Fvector-background-wallpaper-with-polygons-in-gradient-colors.jpg&f=1&nofb=1";
+$color_1: #000;
+$color_2: #fff;
+$background-color_1: #333739;
+$border-color_1: #0f1111;
 body {
-    background-image: url($url);
+    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.vecteezy.com%2Fsystem%2Fresources%2Fpreviews%2F000%2F401%2F390%2Foriginal%2Fvector-background-wallpaper-with-polygons-in-gradient-colors.jpg&f=1&nofb=1');
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -9,7 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #000;
+    color: $color_1;
 }
 
 .frosty-background {
@@ -20,15 +23,11 @@ body {
     bottom: 0;
     filter: blur(7px);
     z-index: -1;
-}
-
-.frosty-background {
     background: inherit;
     z-index: -2;
-}
-
-.frosty-background:before {
-    background: inherit;
+    &:before {
+        background: inherit;
+    }
 }
 
 #app {
@@ -43,7 +42,10 @@ body {
     height: 100%;
 }
 
-table,
+table {
+    --bs-border-color: #000;
+}
+
 tr {
     --bs-border-color: #000;
 }
@@ -53,7 +55,7 @@ tr {
 }
 
 .form-control {
-    background-color: #333739!important;
-    border-color: #0f1111!important;
-    color: #fff!important;
+    background-color: $background-color_1 !important;
+    border-color: $border-color_1 !important;
+    color: $color_2 !important;
 }

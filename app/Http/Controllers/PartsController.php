@@ -37,8 +37,8 @@ class PartsController extends Controller
 
         $part = new Part();
         $part->name = $request->name;
-        $part->serialnumber = $request->serialnumber;
-        $part->car_id = $request->car_id ? $request->car_id : null;
+        $part->serialnumber = (int)$request->serialnumber;
+        $part->car_id = $request->car_id ? (int)$request->car_id : null;
         $part->save();
     }
 
@@ -50,7 +50,11 @@ class PartsController extends Controller
      */
     public function show($id)
     {
-        //
+        $part = Part::where("id", $id)->get()->first();
+
+        return response()->json([
+            'part' => $part
+        ], 200);
     }
 
     /**
@@ -62,7 +66,22 @@ class PartsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Validator::make($request->all(), [
+            'name' => 'required|string',
+            'serialnumber' => 'required|integer',
+            'car_id' => 'integer|nullable'
+        ]);
+
+        // Check string 'null'
+        if($request->car_id == 'null'){
+            $request->car_id = null;
+        }
+
+        $part = Part::where("id", $id)->get()->first();
+        $part->name = $request->name;
+        $part->serialnumber = $request->serialnumber;
+        $part->car_id = $request->car_id ? (int)$request->car_id : null;
+        $part->save();
     }
 
     /**

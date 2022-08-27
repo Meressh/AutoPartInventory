@@ -12,7 +12,7 @@ const showItems = () => {
 
 let form = ref({
     name: "",
-    registration_number: "",
+    serialnumber: "",
     car_id: "",
 });
 

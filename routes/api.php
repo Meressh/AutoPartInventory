@@ -29,4 +29,7 @@ Route::post('/add/cars', [CarsController::class, 'store']);
 
 //Parts
 Route::get('/get/items', [PartsController::class, 'index']);
+Route::get('/get/item/{id}', [PartsController::class, 'show']);
+Route::post('/update/item/{id}', [PartsController::class, 'update']);
+Route::post('/delete/item/{id}', [PartsController::class, 'delete']);
 Route::post('/add/items', [PartsController::class, 'store']);

@@ -19,13 +19,9 @@ body {
   bottom: 0;
   filter: blur(7px);
   z-index: -1;
-}
-
-.frosty-background {
   background: inherit;
   z-index: -2;
 }
-
 .frosty-background:before {
   background: inherit;
 }
@@ -41,7 +37,10 @@ body {
   height: 100%;
 }
 
-table,
+table {
+  --bs-border-color: #000;
+}
+
 tr {
   --bs-border-color: #000;
 }
