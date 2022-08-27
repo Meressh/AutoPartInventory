@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('parts', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
             $table->integer('serialnumber');
             $table->integer('car_id')->nullable();

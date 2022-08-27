@@ -29,16 +29,25 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'registration_number' => 'required_if:is_registered|integer|nullable',
+            'registration_number' => 'integer',
             'is_registered' => 'string|nullable'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
+        // dd($request->is_registered);
+        // dd("request->registration_number");
+        // dd(1);
 
         $car = new Car();
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
-        $car->is_registered = $request->is_registered ? 1 : 0;
+        $car->is_registered = $request->is_registered ? '1' : '0';
         $car->save();
     }
 

@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
-import { ref } from "vue"
-import { axios } from "axios"
+import { onMounted, ref } from "vue";
+import axios from "axios";
 import { toStatement } from "@babel/types";
 
 const router = useRouter();
@@ -11,36 +11,54 @@ const showItems = () => {
 };
 
 let form = ref({
-    name: '',
-    serialnumber: '',
-    car_id: '',
-})
+    name: "",
+    registration_number: "",
+    car_id: "",
+});
 
-const saveCar = () => {
-    const formData = new FormData()
+let errorMessage = ref({
+    errors: {},
+});
 
-    formData.append('name', form.value.name)
-    formData.append('serialnumber', form.value.serialnumber)
-    formData.append('car_id', form.value.car_id)
+let cars = ref({});
 
-    axios.post("/api/add/items", formData)
-    .then((response) => {
-        form.value.name = '',
-        form.value.serialnumber = ''
-        form.value.car_id = ''
+onMounted(async () => {
+    getCars();
+});
 
-        router.push('/items')
+const getCars = async () => {
+    let response = await axios.get("/api/get/cars");
+    cars.value = response.data.cars;
+};
 
-        toast.fire({
-            icon: "success",
-            title: "Car was added successfully"
+const saveItem = () => {
+    const formData = new FormData();
+
+    formData.append("name", form.value.name);
+    formData.append("serialnumber", form.value.serialnumber);
+    formData.append("car_id", form.value.car_id);
+
+    axios
+        .post("/api/add/items", formData)
+        .then((response) => {
+            (form.value.name = ""), (form.value.serialnumber = "");
+            form.value.car_id = "";
+
+            router.push("/items");
+
+            toast.fire({
+                icon: "success",
+                title: "Car was added successfully",
+            });
         })
-    })
-    .catch((error) => {
-
-    })
-
-}
+        .catch((error) => {
+            errorMessage.value.errors = error.response.data.errors;
+            toast.fire({
+                icon: "error",
+                title: "Some errors was made!",
+            });
+        });
+};
 </script>
 <template>
     <div class="items">
@@ -48,7 +66,7 @@ const saveCar = () => {
         <button type="button" class="btn btn-dark" @click="showItems">
             Back
         </button>
-        <form>
+        <form @submit.prevent="saveItem">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label"
                     >Name <span class="text-danger">*</span></label
@@ -67,23 +85,30 @@ const saveCar = () => {
                     >Serial number <span class="text-danger">*</span></label
                 >
                 <input
-                    type="password"
+                    type="number"
                     class="form-control"
                     id="serialnumber"
                     v-model="form.serialnumber"
+                    required
                 />
             </div>
-            <div class="mb-3 form-check">
-                <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                    @click="form.car_id = !form.car_id"
-                />
-                <label class="form-check-label" for="car_id"
-                    >Is registered?</label
+                <label for="serialnumber" class="form-label"
+                    >Pick Car</label
                 >
-            </div>
+                <div class="list-group mb-3" v-if="cars.length > 0">
+                    <button
+                        type="button"
+                        class="list-group-item list-group-item-action"
+                        v-for="car in cars"
+                        :key="car.id"
+                        :class="{ active: car.id == form.car_id }"
+                        aria-current="true"
+                        @click="form.car_id = car.id"
+                    >
+                        {{ car.name }} || {{ car.registration_number ? car.registration_number : "No registration number" }}
+                    </button>
+                </div>
+                <p v-else>Not Found</p>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

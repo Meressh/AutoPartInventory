@@ -23,7 +23,7 @@ const routes = [{
         component: newCar
     },
     {
-        path: '/edit_car',
+        path: '/edit/car/:id',
         component: editCar
     },
     {
@@ -35,7 +35,7 @@ const routes = [{
         component: newItem
     },
     {
-        path: '/edit/item',
+        path: '/edit/item/:id',
         component: editItem
     },
     {

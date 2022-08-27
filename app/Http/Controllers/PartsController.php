@@ -15,7 +15,7 @@ class PartsController extends Controller
      */
     public function index()
     {
-        $parts = Part::all();
+        $parts = Part::with('car')->get()->all();
         return response()->json([
             'items' => $parts
         ], 200);

@@ -27,7 +27,7 @@ onMounted(async () => {
 })
 
 const getCars = async () => {
-    let response = axios.get("/api/get/cars")
+    let response = await axios.get("/api/get/cars")
     cars.value = response.data.cars
 }
 
@@ -40,7 +40,7 @@ const getCars = async () => {
             Back
         </button>
         <button type="button" class="btn btn-info ms-2" @click="newCar">New</button>
-        <table class="table">
+        <table class="table" v-cloak>
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -54,9 +54,9 @@ const getCars = async () => {
             <tbody>
                 <tr v-for="car in cars" :key="car.id" v-if="cars.length > 0">
                     <th scope="row">Action</th>
-                    <td>mdo</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.registration_number }}</td>
+                    <td>{{ car.is_registered == "0" ? "NO" : "YES"}} </td>
                     <td class="text-center text-danger">
                         <span class="cursor-pointer" @click="deleteCar">Delete</span>
                     </td>
@@ -64,7 +64,7 @@ const getCars = async () => {
                         <span class="cursor-pointer" @click="editCar">Edit</span>
                     </td>
                 </tr>
-                <tr v-if="cars.length <= 0">
+                <tr v-else>
                     <td><h3>No Cars</h3></td>
                 </tr>
             </tbody>

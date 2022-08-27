@@ -26,7 +26,7 @@ onMounted(async () => {
 })
 
 const getItems = async () => {
-    let response = axios.get("/api/get/items")
+    let response = await axios.get("/api/get/items")
     items.value = response.data.items
 }
 </script>
@@ -52,9 +52,9 @@ const getItems = async () => {
             <tbody>
                 <tr v-for="item in items" :key="item.id" v-if="items.length > 0">
                     <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.serialnumber }}</td>
+                    <td>{{ item.car.name }}</td>
                     <td class="text-center text-danger">
                         <span class="cursor-pointer" @click="deleteItem">Delete</span>
                     </td>
@@ -62,7 +62,7 @@ const getItems = async () => {
                         <span class="cursor-pointer" @click="editItem">Edit</span>
                     </td>
                 </tr>
-                <tr v-if="items.length <= 0">
+                <tr v-else>
                     <td><h3>No Parts</h3></td>
                 </tr>
             </tbody>

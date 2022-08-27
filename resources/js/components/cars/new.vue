@@ -1,7 +1,7 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { ref } from "vue"
-import { axios } from "axios"
+import axios from "axios"
 import { toStatement } from "@babel/types";
 
 const router = useRouter();
@@ -16,13 +16,25 @@ let form = ref({
     is_registered: '',
 })
 
+let errorMessage = ref({
+    errors: {}
+});
+
 const saveCar = () => {
+    if(form.value.is_registered && !form.value.registration_number){
+        toast.fire({
+            icon: "error",
+            title: "Registration number is required!"
+        })
+        return;
+    }
     const formData = new FormData()
 
     formData.append('name', form.value.name)
     formData.append('registration_number', form.value.registration_number)
     formData.append('is_registered', form.value.is_registered)
 
+    
     axios.post("/api/add/cars", formData)
     .then((response) => {
         form.value.name = '',
@@ -37,7 +49,11 @@ const saveCar = () => {
         })
     })
     .catch((error) => {
-
+        errorMessage.value.errors = error.response.data.errors
+        toast.fire({
+            icon: "error",
+            title: "Some errors was made!"
+        })
     })
 
 }
@@ -49,11 +65,14 @@ const saveCar = () => {
         <button type="button" class="btn btn-dark" @click="showCars">
             Back
         </button>
-        <form>
+        <form @submit.prevent="saveCar">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label"
                     >Name <span class="text-danger">*</span></label
                 >
+                <div class="text-danger error-message fw-bold" v-if="errorMessage.errors.name">
+                    {{ errorMessage.errors.name[0] }}
+                </div>
                 <input
                     type="text"
                     class="form-control"
@@ -67,14 +86,20 @@ const saveCar = () => {
                 <label for="registration_number" class="form-label"
                     >Registration number <span class="text-danger">{{ form.is_registered ? '*' : '' }}</span></label
                 >
+                <div class="text-danger error-message fw-bold" v-if="errorMessage.errors.registration_number">
+                    {{ errorMessage.errors.registration_number[0] }}
+                </div>
                 <input
-                    type="password"
+                    type="number"
                     class="form-control"
                     id="registration_number"
                     v-model="form.registration_number"
                 />
             </div>
             <div class="mb-3 form-check">
+                <div class="text-danger error-message fw-bold" v-if="errorMessage.errors.is_registered">
+                    {{ errorMessage.errors.is_registered[0] }}
+                </div>
                 <input
                     type="checkbox"
                     class="form-check-input"
