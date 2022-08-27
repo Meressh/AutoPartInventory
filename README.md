@@ -68,7 +68,7 @@ I will sum up. What I have done. If i remember :)
 
     controllers and so -> ./app
 
-    databases - ./databases
+    databases - ./database
 
 
 
