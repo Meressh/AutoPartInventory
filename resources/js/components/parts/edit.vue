@@ -8,9 +8,9 @@ const router = useRouter();
 const props = defineProps({
     id: {
         type: String,
-        default: ''
-    }
-})
+        default: "",
+    },
+});
 
 const showParts = () => {
     router.push("/parts");
@@ -29,16 +29,16 @@ let errorMessage = ref({
 let cars = ref({});
 
 onMounted(async () => {
-    getCars()
-    getPart()
+    getCars();
+    getPart();
 });
 
 const getPart = async () => {
-    let response = await axios.get(`/api/get/part/${props.id}`)
-    form.value.name = response.data.part.name
-    form.value.serialnumber = response.data.part.serialnumber
-    form.value.car_id = response.data.part.car_id
-}
+    let response = await axios.get(`/api/get/part/${props.id}`);
+    form.value.name = response.data.part.name;
+    form.value.serialnumber = response.data.part.serialnumber;
+    form.value.car_id = response.data.part.car_id;
+};
 
 const getCars = async () => {
     let response = await axios.get("/api/get/cars");
@@ -46,10 +46,10 @@ const getCars = async () => {
 };
 
 const checkIfActive = (id) => {
-    if(id == form.value.car_id){
+    if (id == form.value.car_id) {
         form.value.car_id = null;
-    }else{
-        form.value.car_id = id
+    } else {
+        form.value.car_id = id;
     }
 };
 
@@ -94,6 +94,12 @@ const updatePart = () => {
                 <label for="name" class="form-label"
                     >Name <span class="text-danger">*</span></label
                 >
+                <div
+                    class="text-danger error-message fw-bold"
+                    v-if="errorMessage.errors.name"
+                >
+                    {{ errorMessage.errors.name[0] }}
+                </div>
                 <input
                     type="text"
                     class="form-control"
@@ -107,6 +113,12 @@ const updatePart = () => {
                 <label for="serialnumber" class="form-label"
                     >Serial number <span class="text-danger">*</span></label
                 >
+                <div
+                    class="text-danger error-message fw-bold"
+                    v-if="errorMessage.errors.serialnumber"
+                >
+                    {{ errorMessage.errors.serialnumber[0] }}
+                </div>
                 <input
                     type="number"
                     class="form-control"
@@ -115,24 +127,27 @@ const updatePart = () => {
                     required
                 />
             </div>
-                <label for="serialnumber" class="form-label"
-                    >Pick Car</label
+            <label for="serialnumber" class="form-label">Pick Car</label>
+            <div class="list-group mb-3" v-if="cars.length > 0">
+                <button
+                    type="button"
+                    class="list-group-item list-group-item-action"
+                    v-for="car in cars"
+                    :key="car.id"
+                    :class="{ active: car.id == form.car_id }"
+                    aria-current="true"
+                    @click="checkIfActive(car.id)"
                 >
-                <div class="list-group mb-3" v-if="cars.length > 0">
-                    <button
-                        type="button"
-                        class="list-group-item list-group-item-action"
-                        v-for="car in cars"
-                        :key="car.id"
-                        :class="{ active: car.id == form.car_id }"
-                        aria-current="true"
-                        @click="checkIfActive(car.id)"
-                    >
-                        {{ car.name }} || {{ car.registration_number ? car.registration_number : "No registration number" }}
-                    </button>
-                </div>
-                <p v-else>Not Found</p>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                    {{ car.name }} ||
+                    {{
+                        car.registration_number
+                            ? car.registration_number
+                            : "No registration number"
+                    }}
+                </button>
+            </div>
+            <p v-else>Not Found</p>
+            <button type="submit" class="btn btn-primary mb-3">Submit</button>
         </form>
     </div>
 </template>
