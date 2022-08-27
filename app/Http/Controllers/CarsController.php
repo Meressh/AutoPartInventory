@@ -64,7 +64,7 @@ class CarsController extends Controller
     public function show($id)
     {
         $car = Car::find($id);
-
+        dd($car->parts);
         return response()->json([
             'car' => $car
         ], 200);

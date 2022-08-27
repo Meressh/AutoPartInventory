@@ -67,7 +67,7 @@ const deleteCar = (id) => {
         </thead>
         <tbody v-if="cars.length > 0">
             <tr v-for="car in cars" :key="car.id">
-                <th scope="row">Action</th>
+                <th scope="row">{{ car.id }}</th>
                 <td>{{ car.name }}</td>
                 <td>{{ car.registration_number }}</td>
                 <td>{{ car.is_registered == "0" ? "NO" : "YES" }}</td>
