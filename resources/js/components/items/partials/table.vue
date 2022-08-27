@@ -67,7 +67,7 @@ const deleteItem = (id) => {
         </thead>
         <tbody v-if="items.length > 0">
             <tr v-for="item in items" :key="item.id">
-                <th scope="row">1</th>
+                <th scope="row">{{ item.id }}</th>
                 <td>{{ item.name }}</td>
                 <td>{{ item.serialnumber }}</td>
                 <td>{{ item.car ? item.car.name : "No asigned" }}</td>

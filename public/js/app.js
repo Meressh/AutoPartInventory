@@ -20236,8 +20236,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }();
 
     var updateCar = function updateCar() {
-      console.log(form.value.is_registered);
-
       if (form.value.is_registered == "1" && !form.value.registration_number) {
         toast.fire({
           icon: "error",
@@ -20540,7 +20538,6 @@ __webpack_require__.r(__webpack_exports__);
             });
             emit("getNewCars", true);
           })["catch"](function (error) {
-            console.log(error);
             toast.fire({
               icon: "error",
               title: "Some errors was made!"
@@ -21105,6 +21102,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       "default": ""
     },
+    searchByCar: {
+      type: Boolean,
+      "default": false
+    },
     data: {
       type: Object,
       "default": {}
@@ -21123,7 +21124,8 @@ __webpack_require__.r(__webpack_exports__);
     var props = __props;
     var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_1__.useRouter)();
     var search = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
-      filter: ""
+      filter: "",
+      filterByCar: ""
     });
 
     var showHome = function showHome() {
@@ -21138,6 +21140,26 @@ __webpack_require__.r(__webpack_exports__);
       emit("searchData", dataFiltered);
     };
 
+    var emitSearchByCar = function emitSearchByCar() {
+      var dataHolder = props.data;
+
+      if (!search.value.filterByCar) {
+        emit("searchData", dataHolder);
+        return;
+      }
+
+      var newDataWithoutNull = [];
+      dataHolder.forEach(function (element) {
+        if (element.car !== null) {
+          newDataWithoutNull.push(element);
+        }
+      });
+      var dataFiltered = newDataWithoutNull.filter(function (main) {
+        return main.car.name.toLowerCase().includes(search.value.filterByCar.toLowerCase());
+      });
+      emit("searchData", dataFiltered);
+    };
+
     var newData = function newData() {
       router.push("/new/".concat(props["new"]));
     };
@@ -21147,6 +21169,7 @@ __webpack_require__.r(__webpack_exports__);
       search: search,
       showHome: showHome,
       emitSearch: emitSearch,
+      emitSearchByCar: emitSearchByCar,
       newData: newData,
       props: props,
       emit: emit,
@@ -21381,7 +21404,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     data: $setup.cars,
     onSearchData: _cache[0] || (_cache[0] = function ($event) {
       return $setup.currentData($event);
-    })
+    }),
+    searchByCar: false
   }, null, 8
   /* PROPS */
   , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_cars_table, {
@@ -21765,7 +21789,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     data: $setup.items,
     onSearchData: _cache[0] || (_cache[0] = function ($event) {
       return $setup.currentData($event);
-    })
+    }),
+    searchByCar: true
   }, null, 8
   /* PROPS */
   , ["data"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_partials_table, {
@@ -21938,13 +21963,9 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 var _hoisted_3 = {
   key: 0
 };
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+var _hoisted_4 = {
   scope: "row"
-}, "1", -1
-/* HOISTED */
-);
-
+};
 var _hoisted_5 = {
   "class": "text-center text-danger"
 };
@@ -21966,7 +21987,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("table", _hoisted_1, [_hoisted_2, $props.items.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tbody", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.items, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: item.id
-    }, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.id), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.name), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(item.serialnumber), 1
     /* TEXT */
@@ -22033,6 +22056,7 @@ var _hoisted_2 = {
   "class": "d-flex flex-column"
 };
 var _hoisted_3 = ["onKeyup"];
+var _hoisted_4 = ["onKeyup"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.props.title), 1
   /* TEXT */
@@ -22056,7 +22080,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     required: ""
   }, null, 40
   /* PROPS, HYDRATE_EVENTS */
-  , _hoisted_3), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search.filter]])])]);
+  , _hoisted_3), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search.filter]]), $setup.props.searchByCar ? (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)(((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("input", {
+    key: 0,
+    type: "text",
+    "class": "form-control mt-1",
+    id: "search",
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $setup.search.filterByCar = $event;
+    }),
+    placeholder: "Search by car",
+    onKeyup: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)($setup.emitSearchByCar, ["enter"]),
+    required: ""
+  }, null, 40
+  /* PROPS, HYDRATE_EVENTS */
+  , _hoisted_4)), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.search.filterByCar]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
 }
 
 /***/ }),

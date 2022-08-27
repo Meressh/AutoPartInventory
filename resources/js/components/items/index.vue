@@ -31,6 +31,7 @@ onMounted(async () => {
             back="/"
             :data="items"
             @searchData="currentData($event)"
+            :searchByCar="true"
         ></navigation>
         <partials-table :items="filteredData" @getNewItems="getItems()"></partials-table>
     </div>

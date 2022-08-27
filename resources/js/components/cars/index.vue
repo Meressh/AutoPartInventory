@@ -32,6 +32,7 @@ onMounted(async () => {
             back="/"
             :data="cars"
             @searchData="currentData($event)"
+            :searchByCar="false"
         ></navigation>
         <cars-table :cars="filteredData" @getNewCars="getCars()"></cars-table>
     </div>

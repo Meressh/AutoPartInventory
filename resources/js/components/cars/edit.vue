@@ -37,7 +37,6 @@ const getCar = async () => {
 }
 
 const updateCar = () => {
-    console.log(form.value.is_registered)
     if((form.value.is_registered == "1") && !form.value.registration_number){
         toast.fire({
             icon: "error",
@@ -51,7 +50,7 @@ const updateCar = () => {
     formData.append('registration_number', form.value.registration_number)
     formData.append('is_registered', form.value.is_registered)
 
-    
+
     axios.post("/api/update/car/" + props.id, formData)
     .then((response) => {
         form.value.name = '',

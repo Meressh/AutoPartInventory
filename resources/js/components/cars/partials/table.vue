@@ -43,8 +43,6 @@ const deleteCar = (id) => {
                     emit("getNewCars", true);
                 })
                 .catch((error) => {
-                    console.log(error);
-
                     toast.fire({
                         icon: "error",
                         title: "Some errors was made!",

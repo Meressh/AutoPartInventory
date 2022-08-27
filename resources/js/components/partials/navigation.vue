@@ -5,6 +5,7 @@ import { ref } from "vue";
 const router = useRouter();
 let search = ref({
     filter: "",
+    filterByCar: "",
 });
 
 const showHome = () => {
@@ -13,8 +14,35 @@ const showHome = () => {
 
 const emitSearch = () => {
     let dataHolder = props.data;
+
     let dataFiltered = dataHolder.filter((main) =>
         main.name.toLowerCase().includes(search.value.filter.toLowerCase())
+    );
+
+    emit("searchData", dataFiltered);
+};
+
+const emitSearchByCar = () => {
+    let dataHolder = props.data;
+
+    if(!search.value.filterByCar){
+        emit("searchData", dataHolder);
+        return;
+    }
+
+    let newDataWithoutNull = [];
+
+    dataHolder.forEach((element) => {
+        if (element.car !== null) {
+            newDataWithoutNull.push(element);
+        }
+    });
+
+
+    let dataFiltered = newDataWithoutNull.filter((main) =>
+        main.car.name
+            .toLowerCase()
+            .includes(search.value.filterByCar.toLowerCase())
     );
 
     emit("searchData", dataFiltered);
@@ -36,6 +64,10 @@ const props = defineProps({
     new: {
         type: String,
         default: "",
+    },
+    searchByCar: {
+        type: Boolean,
+        default: false,
     },
     data: {
         type: Object,
@@ -76,6 +108,16 @@ const emit = defineEmits({
                 v-model="search.filter"
                 placeholder="Search by name"
                 v-on:keyup.enter="emitSearch"
+                required
+            />
+            <input
+                type="text"
+                class="form-control mt-1"
+                id="search"
+                v-model="search.filterByCar"
+                v-if="props.searchByCar"
+                placeholder="Search by car"
+                v-on:keyup.enter="emitSearchByCar"
                 required
             />
         </div>
