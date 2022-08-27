@@ -1,41 +1,32 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
-
-let cars = ref([]);
-let search = ref({
-    filter: "",
-});
+import Navigation from "../partials/navigation.vue";
 
 const router = useRouter();
 
-const showHome = () => {
-    router.push("/");
-};
-
-const newCar = () => {
-    router.push("/new/car");
-};
+let cars = ref([]);
+let filteredData = ref([]);
 
 const editCar = (id) => {
     router.push("/edit/car/" + id);
+};
+
+const currentData = (carsFiltered) => {
+    filteredData.value = carsFiltered
 };
 
 onMounted(async () => {
     getCars();
 });
 
-const filteredList = () => {
-    console.log(search)
-    return cars.value.filter((car) =>
-        car.name.toLowerCase().includes(search.value.filter.toLowerCase())
-    );
-};
-
 const getCars = async () => {
     let response = await axios.get("/api/get/cars");
 
     cars.value = response.data.cars;
+    filteredData.value = response.data.cars
+
+
 };
 const deleteCar = (id) => {
     Swal.fire({
@@ -72,37 +63,7 @@ const deleteCar = (id) => {
 
 <template>
     <div class="cars">
-        <div class="d-flex justify-content-between align-items-end">
-            <div class="d-flex flex-column">
-                <h2>Cars</h2>
-                <div>
-                    <button
-                        type="button"
-                        class="btn btn-dark"
-                        @click="showHome"
-                    >
-                        Back
-                    </button>
-                    <button
-                        type="button"
-                        class="btn btn-info ms-2"
-                        @click="newCar"
-                    >
-                        New
-                    </button>
-                </div>
-            </div>
-            <div>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="search"
-                    v-model="search.filter"
-                    placeholder="Search by name"
-                    required
-                />
-            </div>
-        </div>
+        <navigation new="car" back="/" :cars="cars" @searchData="currentData($event)"></navigation>
         <table class="table" v-cloak>
             <thead>
                 <tr>
@@ -115,7 +76,7 @@ const deleteCar = (id) => {
                 </tr>
             </thead>
             <tbody v-if="cars.length > 0">
-                <tr v-for="car in filteredList()" :key="car.id">
+                <tr v-for="car in filteredData" :key="car.id">
                     <th scope="row">Action</th>
                     <td>{{ car.name }}</td>
                     <td>{{ car.registration_number }}</td>

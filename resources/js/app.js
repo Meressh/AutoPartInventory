@@ -1,6 +1,12 @@
 import './bootstrap';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/dist/sweetalert2.css'
+import { createApp } from "vue"
+import App from "./components/App.vue"
+import router from './router'
+import searchFilter from './components/partials/search'
+import navigation from './components/partials/navigation'
+
 
 window.Swal = Swal;
 const toast = Swal.mixin({
@@ -12,8 +18,7 @@ const toast = Swal.mixin({
 })
 window.toast = toast;
 
-import { createApp } from "vue"
-import App from "./components/App.vue"
-import router from './router'
-
-createApp(App).use(router).mount("#app")
+const app = createApp(App)
+app.component('search-filter', searchFilter)
+app.component('navigation', navigation)
+app.use(router).mount("#app")
