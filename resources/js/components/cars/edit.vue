@@ -33,8 +33,8 @@ const getCar = async () => {
     let response = await axios.get(`/api/get/car/${props.id}`)
 
     form.value.name = response.data.car.name
-    form.value.registration_number = response.data.car.registration_number == "1" ? true : false
-    form.value.is_registered = response.data.car.is_registered
+    form.value.registration_number = response.data.car.registration_number
+    form.value.is_registered = response.data.car.is_registered == "1" ? true : false
 }
 
 const updateCar = () => {

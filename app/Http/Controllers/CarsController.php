@@ -36,7 +36,7 @@ class CarsController extends Controller
             'is_registered' => 'string|nullable|max:255'
         ]);
 
-        if($request->is_registered == "1" && !$request->registration_number){
+        if($request->is_registered == "true" && !$request->registration_number){
             return response()->json([
                 'error' => "Registration number is required!"
             ], 400);
@@ -51,7 +51,7 @@ class CarsController extends Controller
         $car = new Car();
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
-        $car->is_registered = $request->is_registered ? '1' : '0';
+        $car->is_registered = $request->is_registered == "true" ? '1' : '0';
         $car->save();
     }
 
@@ -85,7 +85,7 @@ class CarsController extends Controller
             'is_registered' => 'string|nullable|max:255'
         ]);
 
-        if($request->is_registered == "1" && !$request->registration_number){
+        if($request->is_registered == "true" && !$request->registration_number){
             return response()->json([
                 'error' => "Registration number is required!"
             ], 400);
@@ -100,7 +100,7 @@ class CarsController extends Controller
 
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
-        $car->is_registered = $request->is_registered ? '1' : '0';
+        $car->is_registered = $request->is_registered == "true" ? '1' : '0';
         $car->save();
     }
 
