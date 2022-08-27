@@ -69,7 +69,7 @@ const savePart = () => {
 };
 </script>
 <template>
-    <div class="parts">
+    <div class="parts container">
         <h2>New Parts</h2>
         <button type="button" class="btn btn-dark" @click="showParts">
             Back

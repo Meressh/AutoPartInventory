@@ -77,7 +77,7 @@ const updateCar = () => {
 </script>
 
 <template>
-    <div class="cars">
+    <div class="cars container">
         <h2>Edit Car: </h2>
         <button type="button" class="btn btn-dark" @click="showCars">
             Back

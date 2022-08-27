@@ -25,7 +25,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="cars">
+    <div class="cars container">
         <navigation
             title="Cars"
             new="car"
