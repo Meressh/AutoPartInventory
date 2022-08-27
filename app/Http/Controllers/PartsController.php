@@ -31,8 +31,8 @@ class PartsController extends Controller
     {
         Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'serialnumber' => 'required|integer|digits:10',
-            'car_id' => 'integer|nullable|digits:10'
+            'serialnumber' => 'required|integer',
+            'car_id' => 'integer|nullable'
         ]);
 
         $part = new Part();
@@ -67,7 +67,7 @@ class PartsController extends Controller
     public function update(Request $request, $id)
     {
         Validator::make($request->all(), [
-            'name' => 'required|string',
+            'name' => 'required|string|max:255',
             'serialnumber' => 'required|integer',
             'car_id' => 'integer|nullable'
         ]);

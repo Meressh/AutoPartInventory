@@ -32,7 +32,7 @@ class CarsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'registration_number' => 'integer|nullable|digits:10',
+            'registration_number' => 'integer|nullable',
             'is_registered' => 'string|nullable|max:255'
         ]);
 
@@ -81,7 +81,7 @@ class CarsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'registration_number' => 'integer|nullable|digits:10',
+            'registration_number' => 'integer|nullable',
             'is_registered' => 'string|nullable|max:255'
         ]);
 
