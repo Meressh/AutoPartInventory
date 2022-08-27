@@ -5,15 +5,9 @@ import axios from "axios";
 import { toStatement } from "@babel/types";
 
 const router = useRouter();
-const props = defineProps({
-    id: {
-        type: String,
-        default: ''
-    }
-})
 
-const showItems = () => {
-    router.push("/items");
+const showParts = () => {
+    router.push("/parts");
 };
 
 let form = ref({
@@ -29,16 +23,8 @@ let errorMessage = ref({
 let cars = ref({});
 
 onMounted(async () => {
-    getCars()
-    getItem()
+    getCars();
 });
-
-const getItem = async () => {
-    let response = await axios.get(`/api/get/item/${props.id}`)
-    form.value.name = response.data.part.name
-    form.value.serialnumber = response.data.part.serialnumber
-    form.value.car_id = response.data.part.car_id
-}
 
 const getCars = async () => {
     let response = await axios.get("/api/get/cars");
@@ -53,7 +39,7 @@ const checkIfActive = (id) => {
     }
 };
 
-const updateItem = () => {
+const savePart = () => {
     const formData = new FormData();
 
     formData.append("name", form.value.name);
@@ -61,17 +47,16 @@ const updateItem = () => {
     formData.append("car_id", form.value.car_id);
 
     axios
-        .post("/api/update/item/" + props.id, formData)
+        .post("/api/add/parts", formData)
         .then((response) => {
-            form.value.name = "";
-            form.value.serialnumber = "";
+            (form.value.name = ""), (form.value.serialnumber = "");
             form.value.car_id = "";
 
-            router.push("/items");
+            router.push("/parts");
 
             toast.fire({
                 icon: "success",
-                title: "Item was updated successfully",
+                title: "Car was added successfully",
             });
         })
         .catch((error) => {
@@ -84,12 +69,12 @@ const updateItem = () => {
 };
 </script>
 <template>
-    <div class="items">
-        <h2>New Item</h2>
-        <button type="button" class="btn btn-dark" @click="showItems">
+    <div class="parts">
+        <h2>New Parts</h2>
+        <button type="button" class="btn btn-dark" @click="showParts">
             Back
         </button>
-        <form @submit.prevent="updateItem">
+        <form @submit.prevent="savePart">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label"
                     >Name <span class="text-danger">*</span></label

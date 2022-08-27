@@ -7,8 +7,8 @@ const showCars = () => {
     router.push('/cars');
 }
 
-const showItems = () => {
-    router.push('/items');
+const showParts = () => {
+    router.push('/parts');
 
 }
 </script>
@@ -17,7 +17,7 @@ const showItems = () => {
         <h1>Welcome on this page.</h1>
         <div>
             <button type="button" class="btn btn-info" @click="showCars">Show Cars</button>
-            <button type="button" class="btn btn-dark ms-2" @click="showItems">Show Parts</button>
+            <button type="button" class="btn btn-dark ms-2" @click="showParts">Show Parts</button>
         </div>
     </div>
 </template>

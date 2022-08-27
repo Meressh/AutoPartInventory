@@ -17,7 +17,7 @@ class PartsController extends Controller
     {
         $parts = Part::with('car')->get()->all();
         return response()->json([
-            'items' => $parts
+            'parts' => $parts
         ], 200);
     }
 
@@ -30,9 +30,9 @@ class PartsController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'name' => 'required|string',
-            'serialnumber' => 'required|integer',
-            'car_id' => 'integer|nullable'
+            'name' => 'required|string|max:255',
+            'serialnumber' => 'required|integer|digits:10',
+            'car_id' => 'integer|nullable|digits:10'
         ]);
 
         $part = new Part();
@@ -54,21 +54,6 @@ class PartsController extends Controller
 
         return response()->json([
             'part' => $part
-        ], 200);
-    }
-
-    /**
-     * Search for specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function search($query)
-    {
-        $parts = Part::where("name", $query)->get();
-
-        return response()->json([
-            'parts' => $parts
         ], 200);
     }
 

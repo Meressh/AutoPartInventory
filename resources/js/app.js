@@ -12,7 +12,7 @@ import searchFilter from './components/partials/search'
 import navigation from './components/partials/navigation'
 
 import carsTable from './components/cars/partials/table.vue'
-import partialsTable from './components/items/partials/table.vue'
+import partialsTable from './components/parts/partials/table.vue'
 
 // Add notifications to app
 window.Swal = Swal;

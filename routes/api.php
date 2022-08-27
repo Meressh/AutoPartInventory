@@ -28,8 +28,8 @@ Route::post('/delete/car/{id}', [CarsController::class, 'destroy']);
 Route::post('/add/cars', [CarsController::class, 'store']);
 
 //Parts
-Route::get('/get/items', [PartsController::class, 'index']);
-Route::get('/get/item/{id}', [PartsController::class, 'show']);
-Route::post('/update/item/{id}', [PartsController::class, 'update']);
-Route::post('/delete/item/{id}', [PartsController::class, 'destroy']);
-Route::post('/add/items', [PartsController::class, 'store']);
+Route::get('/get/parts', [PartsController::class, 'index']);
+Route::get('/get/part/{id}', [PartsController::class, 'show']);
+Route::post('/update/part/{id}', [PartsController::class, 'update']);
+Route::post('/delete/part/{id}', [PartsController::class, 'destroy']);
+Route::post('/add/parts', [PartsController::class, 'store']);

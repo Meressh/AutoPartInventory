@@ -4,14 +4,14 @@ import { onMounted, ref } from "vue";
 
 const router = useRouter();
 
-let items = ref([]);
+let parts = ref([]);
 let filteredData = ref([]);
 
-const getItems = async () => {
-    let response = await axios.get("/api/get/items");
+const getParts = async () => {
+    let response = await axios.get("/api/get/parts");
 
-    items.value = response.data.items;
-    filteredData.value = response.data.items;
+    parts.value = response.data.parts;
+    filteredData.value = response.data.parts;
 };
 
 const currentData = (carsFiltered) => {
@@ -19,20 +19,20 @@ const currentData = (carsFiltered) => {
 };
 
 onMounted(async () => {
-    getItems();
+    getParts();
 });
 </script>
 
 <template>
-    <div class="items">
+    <div class="parts">
         <navigation
             title="Parts"
-            new="item"
+            new="part"
             back="/"
-            :data="items"
+            :data="parts"
             @searchData="currentData($event)"
             :searchByCar="true"
         ></navigation>
-        <partials-table :items="filteredData" @getNewItems="getItems()"></partials-table>
+        <partials-table :parts="filteredData" @getNewParts="getParts()"></partials-table>
     </div>
 </template>

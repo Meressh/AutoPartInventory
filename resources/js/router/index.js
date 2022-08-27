@@ -3,9 +3,9 @@ import carsIndex from '../components/cars/index.vue'
 import newCar from '../components/cars/new.vue'
 import editCar from '../components/cars/edit.vue'
 import welcomeIndex from '../components/welcome/index.vue'
-import itemIndex from '../components/items/index.vue'
-import newItem from '../components/items/new.vue'
-import editItem from '../components/items/edit.vue'
+import partIndex from '../components/parts/index.vue'
+import newPart from '../components/parts/new.vue'
+import editPart from '../components/parts/edit.vue'
 
 
 import notFound from '../components/notFound.vue'
@@ -28,16 +28,16 @@ const routes = [{
         props: true
     },
     {
-        path: '/items',
-        component: itemIndex
+        path: '/parts',
+        component: partIndex
     },
     {
-        path: '/new/item',
-        component: newItem
+        path: '/new/part',
+        component: newPart
     },
     {
-        path: '/edit/item/:id',
-        component: editItem,
+        path: '/edit/part/:id',
+        component: editPart,
         props: true
     },
     {

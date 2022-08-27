@@ -5,9 +5,15 @@ import axios from "axios";
 import { toStatement } from "@babel/types";
 
 const router = useRouter();
+const props = defineProps({
+    id: {
+        type: String,
+        default: ''
+    }
+})
 
-const showItems = () => {
-    router.push("/items");
+const showParts = () => {
+    router.push("/parts");
 };
 
 let form = ref({
@@ -23,15 +29,31 @@ let errorMessage = ref({
 let cars = ref({});
 
 onMounted(async () => {
-    getCars();
+    getCars()
+    getPart()
 });
+
+const getPart = async () => {
+    let response = await axios.get(`/api/get/part/${props.id}`)
+    form.value.name = response.data.part.name
+    form.value.serialnumber = response.data.part.serialnumber
+    form.value.car_id = response.data.part.car_id
+}
 
 const getCars = async () => {
     let response = await axios.get("/api/get/cars");
     cars.value = response.data.cars;
 };
 
-const saveItem = () => {
+const checkIfActive = (id) => {
+    if(id == form.value.car_id){
+        form.value.car_id = null;
+    }else{
+        form.value.car_id = id
+    }
+};
+
+const updatePart = () => {
     const formData = new FormData();
 
     formData.append("name", form.value.name);
@@ -39,16 +61,17 @@ const saveItem = () => {
     formData.append("car_id", form.value.car_id);
 
     axios
-        .post("/api/add/items", formData)
+        .post("/api/update/part/" + props.id, formData)
         .then((response) => {
-            (form.value.name = ""), (form.value.serialnumber = "");
+            form.value.name = "";
+            form.value.serialnumber = "";
             form.value.car_id = "";
 
-            router.push("/items");
+            router.push("/parts");
 
             toast.fire({
                 icon: "success",
-                title: "Car was added successfully",
+                title: "Part was updated successfully",
             });
         })
         .catch((error) => {
@@ -61,12 +84,12 @@ const saveItem = () => {
 };
 </script>
 <template>
-    <div class="items">
-        <h2>New Item</h2>
-        <button type="button" class="btn btn-dark" @click="showItems">
+    <div class="parts">
+        <h2>New Part</h2>
+        <button type="button" class="btn btn-dark" @click="showParts">
             Back
         </button>
-        <form @submit.prevent="saveItem">
+        <form @submit.prevent="updatePart">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label"
                     >Name <span class="text-danger">*</span></label
@@ -103,7 +126,7 @@ const saveItem = () => {
                         :key="car.id"
                         :class="{ active: car.id == form.car_id }"
                         aria-current="true"
-                        @click="form.car_id = car.id"
+                        @click="checkIfActive(car.id)"
                     >
                         {{ car.name }} || {{ car.registration_number ? car.registration_number : "No registration number" }}
                     </button>

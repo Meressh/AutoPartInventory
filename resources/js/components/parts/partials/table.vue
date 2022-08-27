@@ -5,24 +5,24 @@ import { ref } from "vue";
 const router = useRouter();
 
 const props = defineProps({
-    items: {
+    parts: {
         type: Object,
         default: {},
     },
 });
 
 const emit = defineEmits({
-    getNewItems: {
+    getNewParts: {
         type: Boolean,
         default: false,
     },
 });
 
-const editItem = (id) => {
-    router.push("/edit/item/" + id);
+const editPart = (id) => {
+    router.push("/edit/part/" + id);
 };
 
-const deleteItem = (id) => {
+const deletePart = (id) => {
     Swal.fire({
         title: "Are you sure?",
         text: "You cant undo this",
@@ -33,14 +33,14 @@ const deleteItem = (id) => {
     }).then((result) => {
         if (result.value) {
             axios
-                .post("/api/delete/item/" + id)
+                .post("/api/delete/part/" + id)
                 .then((response) => {
                     toast.fire({
                         icon: "success",
-                        title: "Item was successfully deleted",
+                        title: "part was successfully deleted",
                     });
 
-                    emit("getNewItems", true)
+                    emit("getNewParts", true)
                 })
                 .catch((error) => {
                     toast.fire({
@@ -65,19 +65,19 @@ const deleteItem = (id) => {
                 <th scope="col"></th>
             </tr>
         </thead>
-        <tbody v-if="items.length > 0">
-            <tr v-for="item in items" :key="item.id">
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item.name }}</td>
-                <td>{{ item.serialnumber }}</td>
-                <td>{{ item.car ? item.car.name : "No asigned" }}</td>
+        <tbody v-if="parts.length > 0">
+            <tr v-for="part in parts" :key="part.id">
+                <th scope="row">{{ part.id }}</th>
+                <td>{{ part.name }}</td>
+                <td>{{ part.serialnumber }}</td>
+                <td>{{ part.car ? part.car.name : "No asigned" }}</td>
                 <td class="text-center text-danger">
-                    <span class="cursor-pointer" @click="deleteItem(item.id)"
+                    <span class="cursor-pointer" @click="deletePart(part.id)"
                         >Delete</span
                     >
                 </td>
                 <td class="text-center">
-                    <span class="cursor-pointer" @click="editItem(item.id)"
+                    <span class="cursor-pointer" @click="editPart(part.id)"
                         >Edit</span
                     >
                 </td>

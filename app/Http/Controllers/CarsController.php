@@ -31,9 +31,9 @@ class CarsController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'registration_number' => 'integer|nullable',
-            'is_registered' => 'string|nullable'
+            'name' => 'required|string|max:255',
+            'registration_number' => 'integer|nullable|digits:10',
+            'is_registered' => 'string|nullable|max:255'
         ]);
 
         if($request->is_registered == "1" && !$request->registration_number){
@@ -71,21 +71,6 @@ class CarsController extends Controller
     }
 
     /**
-     * Search for specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function search($query)
-    {
-        $cars = Car::where("name", $query)->get();
-
-        return response()->json([
-            'cars' => $cars
-        ], 200);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -95,9 +80,9 @@ class CarsController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'registration_number' => 'nullable',
-            'is_registered' => 'string|nullable'
+            'name' => 'required|string|max:255',
+            'registration_number' => 'integer|nullable|digits:10',
+            'is_registered' => 'string|nullable|max:255'
         ]);
 
         if($request->is_registered == "1" && !$request->registration_number){
