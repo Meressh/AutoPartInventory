@@ -50,7 +50,7 @@ class PartsController extends Controller
      */
     public function show($id)
     {
-        $part = Part::where("id", $id)->get()->first();
+        $part = Part::find($id);
 
         return response()->json([
             'part' => $part
@@ -77,7 +77,7 @@ class PartsController extends Controller
             $request->car_id = null;
         }
 
-        $part = Part::where("id", $id)->get()->first();
+        $part = Part::find($id);
         $part->name = $request->name;
         $part->serialnumber = $request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
@@ -92,6 +92,7 @@ class PartsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $part = Part::find($id);
+        $part->delete();
     }
 }

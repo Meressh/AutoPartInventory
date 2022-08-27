@@ -24,12 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/get/cars', [CarsController::class, 'index']);
 Route::get('/get/car/{id}', [CarsController::class, 'show']);
 Route::post('/update/car/{id}', [CarsController::class, 'update']);
-Route::post('/delete/car/{id}', [CarsController::class, 'delete']);
+Route::post('/delete/car/{id}', [CarsController::class, 'destroy']);
 Route::post('/add/cars', [CarsController::class, 'store']);
 
 //Parts
 Route::get('/get/items', [PartsController::class, 'index']);
 Route::get('/get/item/{id}', [PartsController::class, 'show']);
 Route::post('/update/item/{id}', [PartsController::class, 'update']);
-Route::post('/delete/item/{id}', [PartsController::class, 'delete']);
+Route::post('/delete/item/{id}', [PartsController::class, 'destroy']);
 Route::post('/add/items', [PartsController::class, 'store']);

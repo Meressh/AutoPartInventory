@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Part;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -62,7 +63,7 @@ class CarsController extends Controller
      */
     public function show($id)
     {
-        $car = Car::where("id", $id)->get()->first();
+        $car = Car::find($id);
 
         return response()->json([
             'car' => $car
@@ -83,7 +84,7 @@ class CarsController extends Controller
             'registration_number' => 'nullable',
             'is_registered' => 'string|nullable'
         ]);
-        
+
         if($request->is_registered == "1" && !$request->registration_number){
             return response()->json([
                 'error' => "Registration number is required!"
@@ -95,8 +96,8 @@ class CarsController extends Controller
                 'errors' => $validator->messages()
             ], 400);
         }
+        $car = Car::find($id);
 
-        $car = Car::where("id", $id)->get()->first();
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered ? '1' : '0';
@@ -111,6 +112,15 @@ class CarsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $car = Car::find($id);
+        $car->delete();
+
+        // Set null for car_id because car is deleted
+        $parts = Part::where("id", $id)->get();
+
+        foreach ($parts as $part) {
+            $part->car_id = null;
+            $part->save();
+        }
     }
 }

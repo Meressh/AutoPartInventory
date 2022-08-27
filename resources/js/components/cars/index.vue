@@ -18,19 +18,46 @@ const editCar = (id) => {
     router.push("/edit/car/" + id);
 };
 
-const deleteCar = (id) => {
-    router.push("/delete/car/" + id);
-};
-
 onMounted(async () => {
     getCars()
 })
 
 const getCars = async () => {
     let response = await axios.get("/api/get/cars")
+
     cars.value = response.data.cars
 }
+const deleteCar = (id) => {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You cant undo this",
+        icon: "warning",
+        confirmButtonColor: "#4595d1",
+        cancelButtonText: "#000",
+        confirmButtonText: "Delete Car",
+    }).then((result) => {
+        if (result.value) {
+            axios
+                .post("/api/delete/car/" + id)
+                .then((response) => {
+                    toast.fire({
+                        icon: "success",
+                        title: "Car was successfully deleted",
+                    });
 
+                    getCars()
+                })
+                .catch((error) => {
+                    console.log(error)
+
+                    toast.fire({
+                        icon: "error",
+                        title: "Some errors was made!",
+                    });
+                });
+        }
+    });
+};
 </script>
 
 <template>

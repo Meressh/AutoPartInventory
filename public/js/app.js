@@ -20333,10 +20333,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       router.push("/edit/car/" + id);
     };
 
-    var deleteCar = function deleteCar(id) {
-      router.push("/delete/car/" + id);
-    };
-
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
@@ -20379,14 +20375,41 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       };
     }();
 
+    var deleteCar = function deleteCar(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You cant undo this",
+        icon: "warning",
+        confirmButtonColor: "#4595d1",
+        cancelButtonText: "#000",
+        confirmButtonText: "Delete Car"
+      }).then(function (result) {
+        if (result.value) {
+          axios.post("/api/delete/car/" + id).then(function (response) {
+            toast.fire({
+              icon: "success",
+              title: "Car was successfully deleted"
+            });
+            getCars();
+          })["catch"](function (error) {
+            console.log(error);
+            toast.fire({
+              icon: "error",
+              title: "Some errors was made!"
+            });
+          });
+        }
+      });
+    };
+
     var __returned__ = {
       cars: cars,
       router: router,
       showHome: showHome,
       newCar: newCar,
       editCar: editCar,
-      deleteCar: deleteCar,
       getCars: getCars,
+      deleteCar: deleteCar,
       useRouter: vue_router__WEBPACK_IMPORTED_MODULE_1__.useRouter,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref
@@ -20723,7 +20746,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
 
     var deleteItem = function deleteItem(id) {
-      router.push("/delete/item/" + id);
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You cant undo this",
+        icon: "warning",
+        confirmButtonColor: "#4595d1",
+        cancelButtonText: "#000",
+        confirmButtonText: "Delete Part"
+      }).then(function (result) {
+        if (result.value) {
+          axios.post("/api/delete/item/" + id).then(function (response) {
+            toast.fire({
+              icon: "success",
+              title: "Item was successfully deleted"
+            });
+            getItems();
+          })["catch"](function (error) {
+            toast.fire({
+              icon: "error",
+              title: "Some errors was made!"
+            });
+          });
+        }
+      });
     };
 
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -20753,9 +20798,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 response = _context2.sent;
+                console.log(response.data);
                 items.value = response.data.items;
 
-              case 4:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -21547,7 +21593,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "button",
     "class": "btn btn-info ms-2",
     onClick: $setup.newItem
-  }, "New"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [$setup.items.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
+  }, " New "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [$setup.items.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     key: 0
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.items, function (item) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
