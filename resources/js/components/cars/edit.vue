@@ -31,8 +31,9 @@ onMounted(async () => {
 
 const getCar = async () => {
     let response = await axios.get(`/api/get/car/${props.id}`)
+
     form.value.name = response.data.car.name
-    form.value.registration_number = response.data.car.registration_number
+    form.value.registration_number = response.data.car.registration_number == "1" ? true : false
     form.value.is_registered = response.data.car.is_registered
 }
 
@@ -100,7 +101,7 @@ const updateCar = () => {
             </div>
             <div class="mb-3">
                 <label for="registration_number" class="form-label"
-                    >Registration number <span class="text-danger">{{ form.is_registered == "1" ? '*' : '' }}</span></label
+                    >Registration number <span class="text-danger">{{ form.is_registered ? '*' : '' }}</span></label
                 >
                 <div class="text-danger error-message fw-bold" v-if="errorMessage.errors.registration_number">
                     {{ errorMessage.errors.registration_number[0] }}
@@ -120,7 +121,7 @@ const updateCar = () => {
                     type="checkbox"
                     class="form-check-input"
                     id="exampleCheck1"
-                    @click="form.is_registered = !form.is_registered"
+                    v-model="form.is_registered"
                 />
                 <label class="form-check-label" for="is_registered"
                     >Is registered?</label

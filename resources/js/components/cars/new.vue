@@ -34,7 +34,6 @@ const saveCar = () => {
     formData.append('registration_number', form.value.registration_number)
     formData.append('is_registered', form.value.is_registered)
 
-    
     axios.post("/api/add/cars", formData)
     .then((response) => {
         form.value.name = '',
@@ -104,7 +103,7 @@ const saveCar = () => {
                     type="checkbox"
                     class="form-check-input"
                     id="exampleCheck1"
-                    @click="form.is_registered = !form.is_registered"
+                    v-model="form.is_registered"
                 />
                 <label class="form-check-label" for="is_registered"
                     >Is registered?</label
