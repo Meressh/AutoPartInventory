@@ -17,10 +17,7 @@ class PartsSeeder extends Seeder
     public function run()
     {
         Part::factory()
-        ->count(25)
-        ->for(Car::factory()->state([
-            'name' => 'Traktor :)',
-        ]))
+        ->count(10)
         ->create();
     }
 }
