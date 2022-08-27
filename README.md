@@ -41,6 +41,19 @@
     npm run dev
     ```
 
+### Versions:
+
+Laravel -> 9.26.1
+
+php -> 8.1.2
+
+nodejs -> v12.22.9
+
+npm -> 8.5.1
+
+mysql -> docker:latest
+
+adminer -> docker:latest
 
 
 ## Info
@@ -56,8 +69,7 @@ I will sum up. What I have done. If i remember :)
 7. CarController and PartController was created
 8. Validation data in controler -> validator laravel. Some simple validaton on client side nothing special.
 9. Docker was initialized and mysql and adminer was set for better compatibility
-10. When im speaking about compatibility I was using node v12.22.9 (I should update :X), php 8.1.2, mysql and adminer are latest
-11. Factories and seeder was created for Car and Part model
+10. Factories and seeder was created for Car and Part model
 
     This list is not chronologically sorted. I wrote what came to my mind.
 
