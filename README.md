@@ -1,4 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+## How to run this app
+
+1. Download from this repo:
+   ```
+   git clone git@github.com:Meressh/AutoPartInventory.git
+   ```
+2. ```
+   cd AutoPartInventory
+   ```
+3. Run:
+   ```
+   composer install
+   ```
+4. Run:
+   ```
+   npm install
+   ```
+5. Optional -> If you are using docker you can run:
+   ```
+   docker compose up
+   ```
+
+   this commad create mysql and adminer for using this application. But if you have your own mysql server or so you can use your own
+6. create .env and setup credentials and so
+7. Run migrations:
+   ```
+   php artisan migrate
+   ```
+8. Optional -> If you want to seed (generate some data) your database use:
+   ```
+   php artisan db:seed
+   ```
+9. You have to use two terminals one for server and one for watcher?
+10. Run server:
+    ```
+    php artisan serve
+    ```
+11. Run watcher(this builds your js if change was made) run in separate console:
+    ```
+    npm run dev
+    ```
+
+
+
+## Info
+
+I will sum up. What I have done. If i remember :)
+
+1. Migrations was created
+2. Models Car and Part was created
+3. Vue was initialized
+4. Fronted is made in vue
+5. You can search data by simple search witch is in different component so props an emits was used also tables are components + navigation
+6. CarController and PartController was created
+7. Validation data in controler -> validator laravel. Some simple validaton on client side nothing special.
+8. Docker was initialized and mysql and adminer was set for better compatibility
+9. When im speaking about compatibility I was using node v12.22.9 (I should update :X), php 8.1.2, mysql and adminer are latest
+10. Factories and seeder was created for Car and Part model
+
+    This list is not chronologically sorted. I wrote what came to my mind.
+
+    Fronted -> ./resources
+
+    Routes -> ./routes
+
+    docker file for mysql -> ./docker-compose.yml
+
+    controllers and so -> ./app
+
+    databases - ./databases
+
+
+
+`<p align="center"><a href="https://laravel.com" target="_blank">``<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a>``</p>`
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
