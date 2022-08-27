@@ -12,12 +12,12 @@ const showHome = () => {
 };
 
 const emitSearch = () => {
-    let carsHolder = props.cars
-    let carsFiltered = carsHolder.filter((car) =>
-        car.name.toLowerCase().includes(search.value.filter.toLowerCase())
+    let dataHolder = props.data;
+    let dataFiltered = dataHolder.filter((main) =>
+        main.name.toLowerCase().includes(search.value.filter.toLowerCase())
     );
 
-    emit("searchData", carsFiltered);
+    emit("searchData", dataFiltered);
 };
 
 const newData = () => {
@@ -29,11 +29,15 @@ const props = defineProps({
         type: String,
         default: "",
     },
+    title: {
+        type: String,
+        default: "",
+    },
     new: {
         type: String,
         default: "",
     },
-    cars: {
+    data: {
         type: Object,
         default: {},
     },
@@ -50,7 +54,7 @@ const emit = defineEmits({
 <template>
     <div class="d-flex justify-content-between align-items-end">
         <div class="d-flex flex-column">
-            <h2>Cars</h2>
+            <h2>{{ props.title }}</h2>
             <div>
                 <button type="button" class="btn btn-dark" @click="showHome">
                     Back
