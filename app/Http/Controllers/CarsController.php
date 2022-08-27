@@ -31,18 +31,21 @@ class CarsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
-            'registration_number' => 'integer',
+            'registration_number' => 'integer|nullable',
             'is_registered' => 'string|nullable'
         ]);
+
+        if($request->is_registered == "1" && !$request->registration_number){
+            return response()->json([
+                'error' => "Registration number is required!"
+            ], 400);
+        }
 
         if ($validator->fails()) {
             return response()->json([
                 'errors' => $validator->messages()
             ], 400);
         }
-        // dd($request->is_registered);
-        // dd("request->registration_number");
-        // dd(1);
 
         $car = new Car();
         $car->name = $request->name;
@@ -59,7 +62,11 @@ class CarsController extends Controller
      */
     public function show($id)
     {
-        //
+        $car = Car::where("id", $id)->get()->first();
+
+        return response()->json([
+            'car' => $car
+        ], 200);
     }
 
     /**
@@ -71,7 +78,29 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'registration_number' => 'nullable',
+            'is_registered' => 'string|nullable'
+        ]);
+        
+        if($request->is_registered == "1" && !$request->registration_number){
+            return response()->json([
+                'error' => "Registration number is required!"
+            ], 400);
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
+
+        $car = Car::where("id", $id)->get()->first();
+        $car->name = $request->name;
+        $car->registration_number = $request->registration_number ? $request->registration_number : null;
+        $car->is_registered = $request->is_registered ? '1' : '0';
+        $car->save();
     }
 
     /**

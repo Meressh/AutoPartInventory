@@ -48,7 +48,7 @@ const saveItem = () => {
 
             toast.fire({
                 icon: "success",
-                title: "Car was added successfully",
+                title: "Item was updated successfully",
             });
         })
         .catch((error) => {

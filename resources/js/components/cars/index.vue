@@ -14,12 +14,12 @@ const newCar = () => {
     router.push("/new/car");
 };
 
-const editCar = () => {
-    router.push("/edit_car");
+const editCar = (id) => {
+    router.push("/edit/car/" + id);
 };
 
-const deleteCar = () => {
-    router.push("");
+const deleteCar = (id) => {
+    router.push("/delete/car/" + id);
 };
 
 onMounted(async () => {
@@ -58,10 +58,10 @@ const getCars = async () => {
                     <td>{{ car.registration_number }}</td>
                     <td>{{ car.is_registered == "0" ? "NO" : "YES"}} </td>
                     <td class="text-center text-danger">
-                        <span class="cursor-pointer" @click="deleteCar">Delete</span>
+                        <span class="cursor-pointer" @click="deleteCar(car.id)">Delete</span>
                     </td>
                     <td class="text-center">
-                        <span class="cursor-pointer" @click="editCar">Edit</span>
+                        <span class="cursor-pointer" @click="editCar(car.id)">Edit</span>
                     </td>
                 </tr>
                 <tr v-else>

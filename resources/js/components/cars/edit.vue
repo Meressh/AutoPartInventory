@@ -1,10 +1,15 @@
 <script setup>
 import { useRouter } from "vue-router";
-import { ref } from "vue"
+import { onMounted,ref } from "vue"
 import axios from "axios"
-import { toStatement } from "@babel/types";
 
 const router = useRouter();
+const props = defineProps({
+    id: {
+        type: String,
+        default: ''
+    }
+})
 
 const showCars = () => {
     router.push("/cars");
@@ -20,8 +25,20 @@ let errorMessage = ref({
     errors: {}
 });
 
-const saveCar = () => {
-    if(form.value.is_registered && !form.value.registration_number){
+onMounted(async () => {
+    getCar()
+})
+
+const getCar = async () => {
+    let response = await axios.get(`/api/get/car/${props.id}`)
+    form.value.name = response.data.car.name
+    form.value.registration_number = response.data.car.registration_number
+    form.value.is_registered = response.data.car.is_registered
+}
+
+const updateCar = () => {
+    console.log(form.value.is_registered)
+    if((form.value.is_registered == "1") && !form.value.registration_number){
         toast.fire({
             icon: "error",
             title: "Registration number is required!"
@@ -35,7 +52,7 @@ const saveCar = () => {
     formData.append('is_registered', form.value.is_registered)
 
     
-    axios.post("/api/add/cars", formData)
+    axios.post("/api/update/car/" + props.id, formData)
     .then((response) => {
         form.value.name = '',
         form.value.registration_number = ''
@@ -45,7 +62,7 @@ const saveCar = () => {
 
         toast.fire({
             icon: "success",
-            title: "Car was added successfully"
+            title: "Car was updated successfully"
         })
     })
     .catch((error) => {
@@ -61,11 +78,11 @@ const saveCar = () => {
 
 <template>
     <div class="cars">
-        <h2>Add Car</h2>
+        <h2>Edit Car: </h2>
         <button type="button" class="btn btn-dark" @click="showCars">
             Back
         </button>
-        <form @submit.prevent="saveCar">
+        <form @submit.prevent="updateCar">
             <div class="mb-3 mt-3">
                 <label for="name" class="form-label"
                     >Name <span class="text-danger">*</span></label
@@ -84,7 +101,7 @@ const saveCar = () => {
             </div>
             <div class="mb-3">
                 <label for="registration_number" class="form-label"
-                    >Registration number <span class="text-danger">{{ form.is_registered ? '*' : '' }}</span></label
+                    >Registration number <span class="text-danger">{{ form.is_registered == "1" ? '*' : '' }}</span></label
                 >
                 <div class="text-danger error-message fw-bold" v-if="errorMessage.errors.registration_number">
                     {{ errorMessage.errors.registration_number[0] }}

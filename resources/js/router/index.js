@@ -24,7 +24,8 @@ const routes = [{
     },
     {
         path: '/edit/car/:id',
-        component: editCar
+        component: editCar,
+        props: true
     },
     {
         path: '/items',
@@ -36,7 +37,8 @@ const routes = [{
     },
     {
         path: '/edit/item/:id',
-        component: editItem
+        component: editItem,
+        props: true
     },
     {
         path: '/:pathMatch(.*)*',
