@@ -50,13 +50,14 @@ I will sum up. What I have done. If i remember :)
 1. Migrations was created
 2. Models Car and Part was created
 3. Vue was initialized
-4. Fronted is made in vue
-5. You can search data by simple search witch is in different component so props an emits was used also tables are components + navigation
-6. CarController and PartController was created
-7. Validation data in controler -> validator laravel. Some simple validaton on client side nothing special.
-8. Docker was initialized and mysql and adminer was set for better compatibility
-9. When im speaking about compatibility I was using node v12.22.9 (I should update :X), php 8.1.2, mysql and adminer are latest
-10. Factories and seeder was created for Car and Part model
+4. Scss was initialized
+5. Fronted is made in vue
+6. You can search data by simple search witch is in different component so props an emits was used also tables are components + navigation
+7. CarController and PartController was created
+8. Validation data in controler -> validator laravel. Some simple validaton on client side nothing special.
+9. Docker was initialized and mysql and adminer was set for better compatibility
+10. When im speaking about compatibility I was using node v12.22.9 (I should update :X), php 8.1.2, mysql and adminer are latest
+11. Factories and seeder was created for Car and Part model
 
     This list is not chronologically sorted. I wrote what came to my mind.
 
@@ -70,7 +71,7 @@ I will sum up. What I have done. If i remember :)
 
     databases - ./database
 
-
+    scss -> ./resources/sass/
 
 `<p align="center"><a href="https://laravel.com" target="_blank">``<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a>``</p>`
 
