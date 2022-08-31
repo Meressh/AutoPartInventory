@@ -59,8 +59,8 @@ class CarsController extends Controller
             ], 200);
         }else{
             return response()->json([
-                'success' => "Error not saved"
-            ], 400);
+                'error' => "Error not saved"
+            ], 500);
         }
     }
 
@@ -117,8 +117,8 @@ class CarsController extends Controller
             ], 200);
         }else{
             return response()->json([
-                'success' => "Error not saved"
-            ], 400);
+                'error' => "Error not saved"
+            ], 500);
         }
     }
 
@@ -147,8 +147,8 @@ class CarsController extends Controller
             ], 200);
         }else{
             return response()->json([
-                'success' => "Error not deleted"
-            ], 400);
+                'error' => "Error not deleted"
+            ], 500);
         }
     }
 }

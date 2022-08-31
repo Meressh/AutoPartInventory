@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PartsController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -46,8 +46,8 @@ class PartsController extends Controller
             ], 200);
         }else{
             return response()->json([
-                'success' => "Error not saved"
-            ], 400);
+                'error' => "Error not saved"
+            ], 500);
         }
     }
 
@@ -98,8 +98,8 @@ class PartsController extends Controller
             ], 200);
         }else{
             return response()->json([
-                'success' => "Error not saved"
-            ], 400);
+                'error' => "Error not saved"
+            ], 500);
         }
     }
 
@@ -120,8 +120,8 @@ class PartsController extends Controller
             ], 200);
         }else{
             return response()->json([
-                'success' => "Error not deleted"
-            ], 400);
+                'error' => "Error not deleted"
+            ], 500);
         }
     }
 }
