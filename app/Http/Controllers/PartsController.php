@@ -44,6 +44,10 @@ class PartsController extends Controller
             return response()->json([
                 'success' => "Succesfully saved"
             ], 200);
+        }else{
+            return response()->json([
+                'success' => "Error not saved"
+            ], 400);
         }
     }
 
@@ -92,6 +96,10 @@ class PartsController extends Controller
             return response()->json([
                 'success' => "Succesfully saved"
             ], 200);
+        }else{
+            return response()->json([
+                'success' => "Error not saved"
+            ], 400);
         }
     }
 
@@ -110,6 +118,10 @@ class PartsController extends Controller
             return response()->json([
                 'success' => "Succesfully deleted"
             ], 200);
+        }else{
+            return response()->json([
+                'success' => "Error not deleted"
+            ], 400);
         }
     }
 }
