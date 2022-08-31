@@ -97,6 +97,7 @@ class CarsController extends Controller
         $this->checkResponse($car->delete());
     }
 
+    //methods
     private function checkResponse($data){
         if($data){
             return response()->json([
