@@ -52,7 +52,7 @@ class CarsController extends Controller
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
 
-        $this->checkResponse($car->save());
+        return $this->checkResponse($car->save());
     }
 
     /**
@@ -100,9 +100,8 @@ class CarsController extends Controller
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
-        $car->save();
 
-        $this->checkResponse($car->save());
+        return $this->checkResponse($car->save());
     }
 
     /**
@@ -114,7 +113,6 @@ class CarsController extends Controller
     public function destroy($id)
     {
         $car = Car::find($id);
-        $car->delete();
 
         // Set null for car_id because car is deleted
         $parts = Part::where("id", $id)->get();
@@ -124,7 +122,7 @@ class CarsController extends Controller
             $part->save();
         }
 
-        $this->checkResponse($car->delete());
+        return $this->checkResponse($car->delete());
     }
 
     //methods

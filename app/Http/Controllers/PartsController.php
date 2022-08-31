@@ -51,7 +51,7 @@ class PartsController extends Controller
         $part->serialnumber = (int)$request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
 
-        $this->checkResponse($part->save());
+        return $this->checkResponse($part->save());
     }
 
     /**
@@ -99,9 +99,8 @@ class PartsController extends Controller
         $part->name = $request->name;
         $part->serialnumber = $request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
-        $part->save();
 
-        $this->checkResponse($part->save());
+        return $this->checkResponse($part->save());
     }
 
     /**
@@ -113,9 +112,8 @@ class PartsController extends Controller
     public function destroy($id)
     {
         $part = Part::find($id);
-        $part->delete();
 
-        $this->checkResponse($part->delete());
+        return $this->checkResponse($part->delete());
     }
 
     //Methods
