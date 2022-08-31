@@ -121,5 +121,11 @@ class CarsController extends Controller
             $part->car_id = null;
             $part->save();
         }
+
+        if($car->delete()){
+            return response()->json([
+                'success' => "Succesfully deleted"
+            ], 200);
+        }
     }
 }

@@ -94,5 +94,11 @@ class PartsController extends Controller
     {
         $part = Part::find($id);
         $part->delete();
+
+        if($part->delete()){
+            return response()->json([
+                'success' => "Succesfully deleted"
+            ], 200);
+        }
     }
 }
