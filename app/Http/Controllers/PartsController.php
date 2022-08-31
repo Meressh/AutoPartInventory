@@ -39,7 +39,12 @@ class PartsController extends Controller
         $part->name = $request->name;
         $part->serialnumber = (int)$request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
-        $part->save();
+
+        if($part->save()){
+            return response()->json([
+                'success' => "Succesfully saved"
+            ], 200);
+        }
     }
 
     /**
@@ -82,6 +87,12 @@ class PartsController extends Controller
         $part->serialnumber = $request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
         $part->save();
+
+        if($part->save()){
+            return response()->json([
+                'success' => "Succesfully saved"
+            ], 200);
+        }
     }
 
     /**

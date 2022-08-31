@@ -52,7 +52,12 @@ class CarsController extends Controller
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
-        $car->save();
+
+        if($car->save()){
+            return response()->json([
+                'success' => "Succesfully saved"
+            ], 200);
+        }
     }
 
     /**
@@ -101,6 +106,12 @@ class CarsController extends Controller
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
         $car->save();
+
+        if($car->save()){
+            return response()->json([
+                'success' => "Succesfully saved"
+            ], 200);
+        }
     }
 
     /**
