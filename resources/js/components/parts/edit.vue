@@ -85,7 +85,7 @@ const updatePart = () => {
 </script>
 <template>
     <div class="parts container">
-        <h2>New Part</h2>
+        <h2>Edit Part:</h2>
         <button type="button" class="btn btn-dark" @click="showParts">
             Back
         </button>

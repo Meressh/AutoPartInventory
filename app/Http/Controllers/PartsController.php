@@ -29,16 +29,16 @@ class PartsController extends Controller
      */
     public function store(Request $request)
     {
+        // Check string 'null'
+        if($request->car_id == "null"){
+            $request["car_id"] = null;
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'serialnumber' => 'required|integer',
             'car_id' => 'integer|nullable'
         ]);
-
-        // Check string 'null'
-        if($request->car_id == 'null'){
-            $request->car_id = null;
-        }
 
         if ($validator->fails()) {
             return response()->json([
@@ -78,16 +78,16 @@ class PartsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Check string 'null'
+        if($request->car_id == "null"){
+            $request["car_id"] = null;
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'serialnumber' => 'required|integer',
             'car_id' => 'integer|nullable'
         ]);
-
-        // Check string 'null'
-        if($request->car_id == 'null'){
-            $request->car_id = null;
-        }
 
         if ($validator->fails()) {
             return response()->json([

@@ -48,6 +48,7 @@ class CarsController extends Controller
         }
 
         $car = new Car();
+
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
