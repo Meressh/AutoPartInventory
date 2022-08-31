@@ -21,13 +21,13 @@ let errorMessage = ref({
 });
 
 const saveCar = () => {
-    if(form.value.is_registered && !form.value.registration_number){
-        toast.fire({
-            icon: "error",
-            title: "Registration number is required!"
-        })
-        return;
-    }
+    // if(form.value.is_registered && !form.value.registration_number){
+    //     toast.fire({
+    //         icon: "error",
+    //         title: "Registration number is required!"
+    //     })
+    //     return;
+    // }
     const formData = new FormData()
 
     formData.append('name', form.value.name)

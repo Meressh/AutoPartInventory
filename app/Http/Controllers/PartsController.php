@@ -29,7 +29,22 @@ class PartsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateData($request);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'serialnumber' => 'required|integer',
+            'car_id' => 'integer|nullable'
+        ]);
+
+        // Check string 'null'
+        if($request->car_id == 'null'){
+            $request->car_id = null;
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
 
         $part = new Part();
         $part->name = $request->name;
@@ -63,7 +78,22 @@ class PartsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateData($request);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'serialnumber' => 'required|integer',
+            'car_id' => 'integer|nullable'
+        ]);
+
+        // Check string 'null'
+        if($request->car_id == 'null'){
+            $request->car_id = null;
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
 
         $part = Part::find($id);
         $part->name = $request->name;
@@ -98,25 +128,6 @@ class PartsController extends Controller
             return response()->json([
                 'error' => "Error not executed"
             ], 500);
-        }
-    }
-
-    private function validateData($request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'serialnumber' => 'required|integer',
-            'car_id' => 'integer|nullable'
-        ]);
-
-        // Check string 'null'
-        if($request->car_id == 'null'){
-            $request->car_id = null;
-        }
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->messages()
-            ], 400);
         }
     }
 }

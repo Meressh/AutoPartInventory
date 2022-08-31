@@ -30,7 +30,22 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateData($request);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'registration_number' => 'integer|nullable',
+            'is_registered' => 'string|nullable|max:255'
+        ]);
+        if($request->is_registered == "true" && !$request->registration_number){
+            return response()->json([
+                'error' => "Registration number is required!"
+            ], 400);
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
 
         $car = new Car();
         $car->name = $request->name;
@@ -63,7 +78,22 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validateData($request);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'registration_number' => 'integer|nullable',
+            'is_registered' => 'string|nullable|max:255'
+        ]);
+        if($request->is_registered == "true" && !$request->registration_number){
+            return response()->json([
+                'error' => "Registration number is required!"
+            ], 400);
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
 
         $car = Car::find($id);
 
@@ -107,26 +137,6 @@ class CarsController extends Controller
             return response()->json([
                 'error' => "Error not executed"
             ], 500);
-        }
-    }
-
-    private function validateData($request){
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'registration_number' => 'integer|nullable',
-            'is_registered' => 'string|nullable|max:255'
-        ]);
-
-        if($request->is_registered == "true" && !$request->registration_number){
-            return response()->json([
-                'error' => "Registration number is required!"
-            ], 400);
-        }
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->messages()
-            ], 400);
         }
     }
 }
