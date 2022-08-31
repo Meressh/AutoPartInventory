@@ -102,7 +102,7 @@ class PartsController extends Controller
     }
 
     private function validateData($request){
-        Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'serialnumber' => 'required|integer',
             'car_id' => 'integer|nullable'
@@ -113,5 +113,10 @@ class PartsController extends Controller
             $request->car_id = null;
         }
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
+        }
     }
 }
