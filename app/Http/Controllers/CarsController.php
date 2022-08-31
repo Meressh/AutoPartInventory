@@ -125,7 +125,7 @@ class CarsController extends Controller
         return $this->checkResponse($car->save());
     }
 
-    private function checkResponse($data){
+    public function checkResponse($data){
         if($data){
             return response()->json([
                 'success' => "Succesfully executed"

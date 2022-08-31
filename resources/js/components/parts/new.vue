@@ -56,7 +56,7 @@ const savePart = () => {
 
             toast.fire({
                 icon: "success",
-                title: "Car was added successfully",
+                title: "Part was added successfully",
             });
         })
         .catch((error) => {

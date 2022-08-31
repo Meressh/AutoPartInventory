@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Part;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use App\Http\Controllers\CarsController;
 class PartsController extends Controller
 {
+
+    protected $carsController;
+
+    public function __construct(){
+        $this->carsController = new CarsController;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -115,18 +121,6 @@ class PartsController extends Controller
         $part->serialnumber = $request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
 
-        return $this->checkResponse($part->save());
-    }
-
-    private function checkResponse($data){
-        if($data){
-            return response()->json([
-                'success' => "Succesfully executed"
-            ], 200);
-        }else{
-            return response()->json([
-                'error' => "Error not executed"
-            ], 500);
-        }
+        return $this->carsController->checkResponse($part->save());
     }
 }

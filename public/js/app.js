@@ -21074,7 +21074,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         router.push("/parts");
         toast.fire({
           icon: "success",
-          title: "Car was added successfully"
+          title: "Part was added successfully"
         });
       })["catch"](function (error) {
         errorMessage.value.errors = error.response.data.errors;
