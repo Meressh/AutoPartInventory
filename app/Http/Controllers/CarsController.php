@@ -37,7 +37,7 @@ class CarsController extends Controller
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
 
-        $this->checkResponse($car->save());c
+        $this->checkResponse($car->save());
     }
 
     /**
