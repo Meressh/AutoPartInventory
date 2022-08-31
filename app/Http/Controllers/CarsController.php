@@ -48,12 +48,7 @@ class CarsController extends Controller
         }
 
         $car = new Car();
-
-        $car->name = $request->name;
-        $car->registration_number = $request->registration_number ? $request->registration_number : null;
-        $car->is_registered = $request->is_registered == "true" ? '1' : '0';
-
-        return $this->checkResponse($car->save());
+        return $this->saveData($request, $car);
     }
 
     /**
@@ -97,12 +92,7 @@ class CarsController extends Controller
         }
 
         $car = Car::find($id);
-
-        $car->name = $request->name;
-        $car->registration_number = $request->registration_number ? $request->registration_number : null;
-        $car->is_registered = $request->is_registered == "true" ? '1' : '0';
-
-        return $this->checkResponse($car->save());
+        return $this->saveData($request, $car);
     }
 
     /**
@@ -127,6 +117,14 @@ class CarsController extends Controller
     }
 
     //methods
+    private function saveData($request, $car){
+        $car->name = $request->name;
+        $car->registration_number = $request->registration_number ? $request->registration_number : null;
+        $car->is_registered = $request->is_registered == "true" ? '1' : '0';
+
+        return $this->checkResponse($car->save());
+    }
+
     private function checkResponse($data){
         if($data){
             return response()->json([

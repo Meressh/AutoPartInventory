@@ -47,11 +47,7 @@ class PartsController extends Controller
         }
 
         $part = new Part();
-        $part->name = $request->name;
-        $part->serialnumber = (int)$request->serialnumber;
-        $part->car_id = $request->car_id ? (int)$request->car_id : null;
-
-        return $this->checkResponse($part->save());
+        return $this->saveData($request, $part);
     }
 
     /**
@@ -96,11 +92,7 @@ class PartsController extends Controller
         }
 
         $part = Part::find($id);
-        $part->name = $request->name;
-        $part->serialnumber = $request->serialnumber;
-        $part->car_id = $request->car_id ? (int)$request->car_id : null;
-
-        return $this->checkResponse($part->save());
+        return $this->saveData($request, $part);
     }
 
     /**
@@ -117,6 +109,15 @@ class PartsController extends Controller
     }
 
     //Methods
+     //methods
+    private function saveData($request, $part){
+        $part->name = $request->name;
+        $part->serialnumber = $request->serialnumber;
+        $part->car_id = $request->car_id ? (int)$request->car_id : null;
+
+        return $this->checkResponse($part->save());
+    }
+
     private function checkResponse($data){
         if($data){
             return response()->json([
