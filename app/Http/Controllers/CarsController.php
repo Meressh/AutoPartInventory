@@ -30,38 +30,14 @@ class CarsController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'registration_number' => 'integer|nullable',
-            'is_registered' => 'string|nullable|max:255'
-        ]);
-
-        if($request->is_registered == "true" && !$request->registration_number){
-            return response()->json([
-                'error' => "Registration number is required!"
-            ], 400);
-        }
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->messages()
-            ], 400);
-        }
+        $this->validateData($request);
 
         $car = new Car();
         $car->name = $request->name;
         $car->registration_number = $request->registration_number ? $request->registration_number : null;
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
 
-        if($car->save()){
-            return response()->json([
-                'success' => "Succesfully saved"
-            ], 200);
-        }else{
-            return response()->json([
-                'error' => "Error not saved"
-            ], 500);
-        }
+        $this->checkResponse($car->save());c
     }
 
     /**
@@ -87,23 +63,8 @@ class CarsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'registration_number' => 'integer|nullable',
-            'is_registered' => 'string|nullable|max:255'
-        ]);
+        $this->validateData($request);
 
-        if($request->is_registered == "true" && !$request->registration_number){
-            return response()->json([
-                'error' => "Registration number is required!"
-            ], 400);
-        }
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->messages()
-            ], 400);
-        }
         $car = Car::find($id);
 
         $car->name = $request->name;
@@ -111,15 +72,7 @@ class CarsController extends Controller
         $car->is_registered = $request->is_registered == "true" ? '1' : '0';
         $car->save();
 
-        if($car->save()){
-            return response()->json([
-                'success' => "Succesfully saved"
-            ], 200);
-        }else{
-            return response()->json([
-                'error' => "Error not saved"
-            ], 500);
-        }
+        $this->checkResponse($car->save());
     }
 
     /**
@@ -141,14 +94,38 @@ class CarsController extends Controller
             $part->save();
         }
 
-        if($car->delete()){
+        $this->checkResponse($car->delete());
+    }
+
+    private function checkResponse($data){
+        if($data){
             return response()->json([
-                'success' => "Succesfully deleted"
+                'success' => "Succesfully executed"
             ], 200);
         }else{
             return response()->json([
-                'error' => "Error not deleted"
+                'error' => "Error not executed"
             ], 500);
+        }
+    }
+
+    private function validateData($request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'registration_number' => 'integer|nullable',
+            'is_registered' => 'string|nullable|max:255'
+        ]);
+
+        if($request->is_registered == "true" && !$request->registration_number){
+            return response()->json([
+                'error' => "Registration number is required!"
+            ], 400);
+        }
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->messages()
+            ], 400);
         }
     }
 }

@@ -29,26 +29,14 @@ class PartsController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'serialnumber' => 'required|integer',
-            'car_id' => 'integer|nullable'
-        ]);
+        $this->validateData($request);
 
         $part = new Part();
         $part->name = $request->name;
         $part->serialnumber = (int)$request->serialnumber;
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
 
-        if($part->save()){
-            return response()->json([
-                'success' => "Succesfully saved"
-            ], 200);
-        }else{
-            return response()->json([
-                'error' => "Error not saved"
-            ], 500);
-        }
+        $this->checkResponse($part->save());
     }
 
     /**
@@ -75,16 +63,7 @@ class PartsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'serialnumber' => 'required|integer',
-            'car_id' => 'integer|nullable'
-        ]);
-
-        // Check string 'null'
-        if($request->car_id == 'null'){
-            $request->car_id = null;
-        }
+        $this->validateData($request);
 
         $part = Part::find($id);
         $part->name = $request->name;
@@ -92,15 +71,7 @@ class PartsController extends Controller
         $part->car_id = $request->car_id ? (int)$request->car_id : null;
         $part->save();
 
-        if($part->save()){
-            return response()->json([
-                'success' => "Succesfully saved"
-            ], 200);
-        }else{
-            return response()->json([
-                'error' => "Error not saved"
-            ], 500);
-        }
+        $this->checkResponse($part->save());
     }
 
     /**
@@ -114,14 +85,33 @@ class PartsController extends Controller
         $part = Part::find($id);
         $part->delete();
 
-        if($part->delete()){
+        $this->checkResponse($part->delete());
+    }
+
+    //Methods
+    private function checkResponse($data){
+        if($data){
             return response()->json([
-                'success' => "Succesfully deleted"
+                'success' => "Succesfully executed"
             ], 200);
         }else{
             return response()->json([
-                'error' => "Error not deleted"
+                'error' => "Error not executed"
             ], 500);
         }
+    }
+
+    private function validateData($request){
+        Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'serialnumber' => 'required|integer',
+            'car_id' => 'integer|nullable'
+        ]);
+
+        // Check string 'null'
+        if($request->car_id == 'null'){
+            $request->car_id = null;
+        }
+
     }
 }
