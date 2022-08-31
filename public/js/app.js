@@ -20431,13 +20431,14 @@ __webpack_require__.r(__webpack_exports__);
     });
 
     var saveCar = function saveCar() {
-      // if(form.value.is_registered && !form.value.registration_number){
-      //     toast.fire({
-      //         icon: "error",
-      //         title: "Registration number is required!"
-      //     })
-      //     return;
-      // }
+      if (form.value.is_registered && !form.value.registration_number) {
+        toast.fire({
+          icon: "error",
+          title: "Registration number is required!"
+        });
+        return;
+      }
+
       var formData = new FormData();
       formData.append('name', form.value.name);
       formData.append('registration_number', form.value.registration_number);
