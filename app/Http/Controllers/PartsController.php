@@ -111,7 +111,7 @@ class PartsController extends Controller
     {
         $part = Part::find($id);
 
-        return $this->checkResponse($part->delete());
+        return $this->carsController->checkResponse($part->delete());
     }
 
     //Methods
